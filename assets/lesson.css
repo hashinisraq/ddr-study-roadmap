@@ -46,6 +46,9 @@ th{background:var(--accent-soft);color:#1b3a86}
 .nav{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:28px;border-top:1px solid var(--line);padding-top:10px}
 .nav a{color:var(--accent);text-decoration:none}
 
+.sitefoot{margin-top:30px;padding:16px 0 4px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;text-align:center}
+.sitefoot a{color:var(--accent);text-decoration:none}
+
 @page{ size:A4; margin:16mm; }
 @media print{
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}

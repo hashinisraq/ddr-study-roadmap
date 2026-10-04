@@ -6,7 +6,15 @@
 <title>DDR4 & DDR5 - Learning</title>
 <link rel="stylesheet" href="assets/lesson.css">
 <style>
-  .phase{margin:24px 0}
+  body{padding-top:0}
+  .navbar{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);
+    margin:0 -24px 18px;padding:11px 24px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+  .navbar .brand{font-weight:800;color:var(--ink);margin-right:6px;font-size:15px}
+  .navbar a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:600}
+  .navbar a:hover{color:var(--accent)}
+  .navbar .spacer{flex:1}
+  .navbar .gh{color:var(--accent)}
+  .phase{margin:24px 0;scroll-margin-top:62px}
   .desc{color:var(--muted);margin:2px 0 8px}
   ul{list-style:none;margin:0;padding:0}
   li{margin:6px 0}
@@ -20,6 +28,21 @@
 </style>
 </head>
 <body>
+  <nav class="navbar">
+    <span class="brand">DDR &middot; Learning</span>
+    <a href="#top">Home</a>
+    <a href="#phase-0">Phase 0</a>
+    <a href="#phase-1">Phase 1</a>
+    <a href="#phase-2">Phase 2</a>
+    <a href="#phase-3">Phase 3</a>
+    <a href="#phase-4">Phase 4</a>
+    <a href="#phase-5">Phase 5</a>
+    <a href="#resources">Resources</a>
+    <span class="spacer"></span>
+    <a class="gh" href="https://github.com/hashinisraq/ddr-study-roadmap">GitHub</a>
+  </nav>
+
+  <span id="top"></span>
   <p class="kicker">Zero to Hero</p>
   <h1>DDR4 &amp; DDR5 - Learning</h1>
   <p class="lead">A complete, ordered course on DDR memory - from "what is a RAM stick" all the
@@ -29,7 +52,7 @@
     Every lesson has <em>Previous</em> / <em>Next</em> links, so you can just keep clicking.
   </div>
   <p class="count">49 illustrated lessons across 6 phases.</p>
-  <section class="phase">
+  <section class="phase" id="phase-0">
     <h2>Phase 0 - Foundations</h2>
     <p class="desc">From zero: what memory is, up through the physics of a DRAM bit.</p>
     <ul>
@@ -46,7 +69,7 @@
       <li><span class="num">11</span> <a href="phase-0-foundations/lessons/11-signal-integrity-basics.html">Signal integrity: reflections & termination</a></li>
     </ul>
   </section>
-  <section class="phase">
+  <section class="phase" id="phase-1">
     <h2>Phase 1 - DDR4 Core</h2>
     <p class="desc">The real foundation: how DDR4 is organized, commanded, and timed.</p>
     <ul>
@@ -64,7 +87,7 @@
       <li><span class="num">23</span> <a href="phase-1-ddr4-core/lessons/12-module-types.html">Module types (UDIMM / RDIMM / LRDIMM)</a></li>
     </ul>
   </section>
-  <section class="phase">
+  <section class="phase" id="phase-2">
     <h2>Phase 2 - DDR5 Delta</h2>
     <p class="desc">What DDR5 changed over DDR4, and why.</p>
     <ul>
@@ -83,7 +106,7 @@
       <li><span class="num">36</span> <a href="phase-2-ddr5-delta/lessons/13-speed-roadmap.html">The speed roadmap</a></li>
     </ul>
   </section>
-  <section class="phase">
+  <section class="phase" id="phase-3">
     <h2>Phase 3 - Specs & Datasheets</h2>
     <p class="desc">How to read the JEDEC specs and real datasheets without drowning.</p>
     <ul>
@@ -92,7 +115,7 @@
       <li><span class="num">39</span> <a href="phase-3-specs-and-datasheets/lessons/03-datasheets-vs-spec.html">Datasheets vs the JEDEC spec</a></li>
     </ul>
   </section>
-  <section class="phase">
+  <section class="phase" id="phase-4">
     <h2>Phase 4 - Hands-on</h2>
     <p class="desc">Exercises that turn knowledge into intuition.</p>
     <ul>
@@ -103,7 +126,7 @@
       <li><span class="num">44</span> <a href="phase-4-hands-on/lessons/05-controller-datasheet.html">Read a real controller datasheet</a></li>
     </ul>
   </section>
-  <section class="phase">
+  <section class="phase" id="phase-5">
     <h2>Phase 5 - Specialization</h2>
     <p class="desc">Pick a track and go deep.</p>
     <ul>
@@ -114,8 +137,7 @@
       <li><span class="num">49</span> <a href="phase-5-specialization/lessons/05-track-architecture.html">Track: System architecture / performance</a></li>
     </ul>
   </section>
-
-  <section class="phase">
+  <section class="phase" id="resources">
     <h2>Go deeper (optional resources)</h2>
     <p class="desc">Free and paid materials if you want more than the lessons.</p>
     <ul class="res">
@@ -135,5 +157,11 @@
       <li><strong>Research frontier:</strong> <a href="https://safari.ethz.ch">SAFARI Research Group</a> (RowHammer, refresh, PIM)</li>
     </ul>
   </section>
+
+  <footer class="sitefoot">
+    &copy; 2026 Hashin Israq. All rights reserved. &middot;
+    <a href="https://github.com/hashinisraq/ddr-study-roadmap">DDR4 &amp; DDR5 - Learning</a><br>
+    Original explanations and diagrams. JEDEC standards referenced here belong to JEDEC and are not distributed.
+  </footer>
 </body>
 </html>
