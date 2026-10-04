@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lesson 0.4 - Inside a Chip: Banks and Bank Groups</title>
+<title>Lesson 0.5 - Inside a Chip: Banks and Bank Groups</title>
 <link rel="stylesheet" href="../../assets/lesson.css">
 </head>
 <body>
@@ -21,15 +21,17 @@
 </nav>
 
 
-<p class="kicker">Phase 0 · Lesson 4</p>
+<p class="kicker">Phase 0 · Lesson 5</p>
 <h1>Inside a Chip: Banks and Bank Groups</h1>
-<p class="lead">Now we open up one chip. The key idea: a chip is split into many independent
-sections so it can do several things at once.</p>
+<p class="lead">You've now seen a single cell (Lesson 2) and how a whole row is sensed into the
+row buffer (Lesson 4). Time to zoom out one level and see how a chip is organized.</p>
 
 <h2>A chip is divided into "banks"</h2>
 <p>A memory chip is not one single blob of storage. Inside, it is divided into separate
 sections called <strong>banks</strong>. Each bank can be working on its own task
 <strong>at the same time</strong> as the others.</p>
+<p>A bank is simply a full grid of cells with its own sense amplifiers and row buffer - in
+other words, one of the arrays you met in Lesson 4. A chip just holds <em>many</em> of them.</p>
 <p>Why split it up? For <strong>speed through parallelism</strong>. Reaching into memory takes a
 little while; if there were only one bank, every request would have to wait in a single line.
 With many banks, while one bank is busy fetching, another can already be serving the next
@@ -93,7 +95,7 @@ two levels exist: <strong>bank groups</strong>, and <strong>banks</strong> insid
   <tr><td>Rank</td><td>a team of chips that together make 64 bits</td></tr>
   <tr><td>Chip</td><td>one of the black memory packages</td></tr>
   <tr><td>Bank group → Bank</td><td>independent sections inside a chip (for parallelism)</td></tr>
-  <tr><td>Cell</td><td>where a single bit actually lives (next lessons)</td></tr>
+  <tr><td>Cell</td><td>where a single bit actually lives (Lessons 2-4)</td></tr>
 </table>
 
 <div class="box analogy">
@@ -104,10 +106,10 @@ two levels exist: <strong>bank groups</strong>, and <strong>banks</strong> insid
 </div>
 
 <div class="box why">
-  <span class="label">You're now ready for the physics</span>
-  That's the whole structure, top to bottom. From the next lesson we zoom into a single
-  <strong>cell</strong> - the tiny part that stores one bit - and build back up. Everything in
-  DDR4 (Phase 1) sits on this foundation.
+  <span class="label">Keep zooming out</span>
+  You've gone from a single bit up to a whole chip full of banks. Next we keep zooming out: how
+  several chips team up into a <strong>rank</strong>, and how they all sit on the physical
+  <strong>stick</strong> (DIMM) you plug in.
 </div>
 
 <div class="box check">
@@ -120,8 +122,8 @@ two levels exist: <strong>bank groups</strong>, and <strong>banks</strong> insid
 </div>
 
 <div class="nav">
-  <a href="03-rank-and-chip-width.html">← Rank &amp; chip width</a>
-  <a href="05-dram-cell-structure.html">Next → DRAM cell structure</a>
+  <a href="04-sense-amplifiers-and-row-buffer.html">&larr; Sense amplifiers &amp; row buffer</a>
+  <a href="06-rank-and-chip-width.html">Next &rarr; Rank &amp; chip width</a>
 </div>
 
   <footer class="sitefoot sticky-foot">&copy; 2026 Hashin Israq &middot; <a href="../../index.html">DDR4 &amp; DDR5 - Learning</a></footer>
