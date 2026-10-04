@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 4.2 - Redraw the Bank State Machine</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 4 · Lesson 2 · Exercise</p>
+<h1>Redraw the Bank State Machine from Memory</h1>
+<p class="lead">A short but revealing exercise: if you can draw it unaided and justify every
+arrow's timing, your Phase 1 foundation is solid.</p>
+
+<h2>The exercise</h2>
+<ol>
+  <li>On a blank page, draw the states: <strong>IDLE → ACTIVE → (RD/WR) → PRECHARGE → IDLE.</strong></li>
+  <li>Label each transition with its <strong>command</strong> (ACT, RD/WR, PRE) and the
+  <strong>minimum timing</strong> that gates the <em>next</em> move (tRCD after ACT, tRAS before
+  PRE, tRP after PRE).</li>
+  <li>Write one sentence per arrow explaining the <em>physical reason</em> for its timing (tie
+  back to Phase 0: sensing, restore, bitline reset).</li>
+  <li>Now check it against the simplified state diagram in the JEDEC spec (Phase 3). Any
+  mismatch is a gap - close it.</li>
+</ol>
+
+<div class="box why">
+  <span class="label">Why from memory</span>
+  Recognizing a diagram is easy; reproducing it is the real test. If you can regenerate the
+  state machine <em>and</em> its timings unaided, you own the model instead of merely having
+  seen it.
+</div>
+
+<div class="box check">
+  <span class="label">Self-grade</span>
+  <ol style="margin:4px 0 0">
+    <li>Did you place all four states and three transitions correctly?</li>
+    <li>Did you attach the right timing to each arrow?</li>
+    <li>Could you justify each timing physically, without notes?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="01-trace-a-transaction.html">← Trace a transaction</a>
+  <a href="03-dram-simulators.html">Next → DRAM simulators</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2.2 - Burst Length 16</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 2 · Lesson 2</p>
+<h1>Burst Length 16 (BL16)</h1>
+<p class="lead">The natural partner of the 32-bit sub-channel: double the burst so one access
+still moves a full cache line.</p>
+
+<h2>The arithmetic</h2>
+<table>
+  <tr><th></th><th>Channel width</th><th>Burst</th><th>Per access</th></tr>
+  <tr><td><strong>DDR4</strong></td><td>64-bit</td><td>BL8</td><td>8 × 64 b = <strong>64 bytes</strong></td></tr>
+  <tr><td><strong>DDR5</strong></td><td>32-bit sub-channel</td><td>BL16</td><td>16 × 32 b = <strong>64 bytes</strong></td></tr>
+</table>
+
+<figure>
+<svg viewBox="0 0 560 140" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="BL8 over 64 bits versus BL16 over 32 bits, both equalling 64 bytes">
+  <style>
+    .a{fill:#eaf0fb;stroke:#2d5bd0;stroke-width:1.2}
+    .b{fill:#e7f6ef;stroke:#0f7b5a;stroke-width:1.2}
+    .k{font:11.5px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+    .t{font:10px 'Segoe UI',sans-serif;fill:#5b6472}
+  </style>
+  <text class="k" x="20" y="28">DDR4 · BL8 (8 beats × 64 bit)</text>
+  <g>
+    <rect class="a" x="20" y="38" width="56" height="24"/><rect class="a" x="78" y="38" width="56" height="24"/>
+    <rect class="a" x="136" y="38" width="56" height="24"/><rect class="a" x="194" y="38" width="56" height="24"/>
+    <rect class="a" x="252" y="38" width="56" height="24"/><rect class="a" x="310" y="38" width="56" height="24"/>
+    <rect class="a" x="368" y="38" width="56" height="24"/><rect class="a" x="426" y="38" width="56" height="24"/>
+  </g>
+  <text class="t" x="490" y="55">= 64 B</text>
+
+  <text class="k" x="20" y="98">DDR5 · BL16 (16 beats × 32 bit)</text>
+  <g>
+    <rect class="b" x="20" y="108" width="28" height="22"/><rect class="b" x="49" y="108" width="28" height="22"/>
+    <rect class="b" x="78" y="108" width="28" height="22"/><rect class="b" x="107" y="108" width="28" height="22"/>
+    <rect class="b" x="136" y="108" width="28" height="22"/><rect class="b" x="165" y="108" width="28" height="22"/>
+    <rect class="b" x="194" y="108" width="28" height="22"/><rect class="b" x="223" y="108" width="28" height="22"/>
+    <rect class="b" x="252" y="108" width="28" height="22"/><rect class="b" x="281" y="108" width="28" height="22"/>
+    <rect class="b" x="310" y="108" width="28" height="22"/><rect class="b" x="339" y="108" width="28" height="22"/>
+    <rect class="b" x="368" y="108" width="28" height="22"/><rect class="b" x="397" y="108" width="28" height="22"/>
+    <rect class="b" x="426" y="108" width="28" height="22"/><rect class="b" x="455" y="108" width="28" height="22"/>
+  </g>
+  <text class="t" x="490" y="123">= 64 B</text>
+</svg>
+<figcaption>Narrower sub-channel (half the width) + double the burst = the same 64-byte cache
+line delivered per access.</figcaption>
+</figure>
+
+<div class="box why">
+  <span class="label">Why keep it at 64 bytes</span>
+  A CPU cache line is 64 bytes, so memory accesses are naturally cache-line sized. DDR5 had to
+  <em>preserve</em> that granularity while narrowing the channel - BL16 is how. Same useful
+  chunk, now delivered over two independent sub-channels.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Why did burst length double from DDR4 to DDR5?</li>
+    <li>Show the arithmetic that both BL8/64-bit and BL16/32-bit equal 64 bytes.</li>
+    <li>Why is 64 bytes the target in the first place?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="01-two-sub-channels.html">← Two sub-channels</a>
+  <a href="03-more-bank-groups-and-banks.html">Next → More bank groups &amp; banks</a>
+</div>
+
+</body>
+</html>

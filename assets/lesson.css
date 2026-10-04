@@ -1,0 +1,56 @@
+/* Shared styling for DDR lesson pages (screen + print/PDF) */
+:root{
+  --ink:#1a1f2b; --muted:#5b6472; --line:#d9dee7; --bg:#ffffff;
+  --accent:#2d5bd0; --accent-soft:#eaf0fb;
+  --why:#0f7b5a; --why-soft:#e7f6ef;
+  --analogy:#9a5b00; --analogy-soft:#fdf2e0;
+  --check:#6b3fa0; --check-soft:#f1ebfa;
+  --mono:"Cascadia Code","Consolas",monospace;
+  --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{
+  font-family:var(--sans); color:var(--ink); line-height:1.55;
+  max-width:820px; margin:0 auto; padding:24px; font-size:15.5px;
+}
+.kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 4px}
+h1{font-size:28px;line-height:1.15;margin:0 0 6px}
+h2{font-size:19px;margin:28px 0 8px;padding-bottom:5px;border-bottom:2px solid var(--line)}
+h3{font-size:16px;margin:18px 0 6px;color:var(--muted)}
+p{margin:9px 0}
+ul,ol{margin:8px 0 8px 2px;padding-left:22px}
+li{margin:4px 0}
+strong{color:#000}
+code{font-family:var(--mono);background:#f3f5f9;padding:1px 5px;border-radius:4px;font-size:.9em}
+.lead{font-size:16.5px;color:var(--muted);margin:0 0 4px}
+hr{border:0;border-top:1px solid var(--line);margin:22px 0}
+
+figure{margin:16px 0;text-align:center}
+figure svg{max-width:100%;height:auto}
+figcaption{font-size:12.5px;color:var(--muted);margin-top:6px}
+
+.box{border-radius:10px;padding:12px 15px;margin:14px 0;border:1px solid var(--line)}
+.box .label{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:3px}
+.why{background:var(--why-soft);border-color:#bfe6d5}
+.why .label{color:var(--why)}
+.analogy{background:var(--analogy-soft);border-color:#f0d9a8}
+.analogy .label{color:var(--analogy)}
+.check{background:var(--check-soft);border-color:#d9c8f0}
+.check .label{color:var(--check)}
+
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent-soft);color:#1b3a86}
+
+.nav{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:28px;border-top:1px solid var(--line);padding-top:10px}
+.nav a{color:var(--accent);text-decoration:none}
+
+@page{ size:A4; margin:16mm; }
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{max-width:none;padding:0;font-size:12pt}
+  h2{page-break-after:avoid}
+  figure,.box,table{page-break-inside:avoid}
+  .nav{display:none}
+}

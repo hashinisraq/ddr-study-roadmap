@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2.12 - DDR5 Modules &amp; the RCD</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 2 · Lesson 12</p>
+<h1>DDR5 Modules &amp; the Registering Clock Driver</h1>
+<p class="lead">How the DDR5 module is built - PMIC, SPD hub, temperature sensors, and the RCD
+that buffers each sub-channel.</p>
+
+<h2>The RCD (Registering Clock Driver)</h2>
+<p>DDR5 RDIMMs use an <strong>RCD</strong> - the evolution of DDR4's register (Phase 1, Lesson
+12). It buffers the <strong>command/address and clock</strong> for the chips, reducing the load
+the controller must drive. Because DDR5 has two sub-channels, the RCD buffers them accordingly.</p>
+
+<h2>The DDR5 module, assembled</h2>
+<table>
+  <tr><th>Component</th><th>Role</th><th>Introduced / changed</th></tr>
+  <tr><td><strong>RCD</strong></td><td>Buffers CA + clock (per sub-channel) on registered modules</td><td>Evolves DDR4's register</td></tr>
+  <tr><td><strong>PMIC</strong></td><td>On-module voltage regulation (Lesson 9)</td><td>New in DDR5</td></tr>
+  <tr><td><strong>SPD hub</strong></td><td>Holds module identity/timing config</td><td>Updated for DDR5</td></tr>
+  <tr><td><strong>Temp sensors</strong></td><td>Report module temperature</td><td>On-module in DDR5</td></tr>
+</table>
+
+<div class="box why">
+  <span class="label">Spec note</span>
+  These module-level parts (RCD, PMIC, SPD hub) are defined in the JEDEC <strong>module</strong>
+  standards, not the DDR5 <em>device</em> spec. When you reach Phase 3, look to the module specs
+  (UDIMM/RDIMM/LRDIMM) for these - the device spec covers the chip itself.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>What does the RCD buffer, and what DDR4 part did it evolve from?</li>
+    <li>List the main components on a DDR5 RDIMM.</li>
+    <li>Which spec documents the module-level parts, versus the chip?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="11-ca-changes-and-training.html">← CA changes &amp; training</a>
+  <a href="13-speed-roadmap.html">Next → Speed roadmap</a>
+</div>
+
+</body>
+</html>

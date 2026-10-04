@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2.1 - Two Independent Sub-channels</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 2 · Lesson 1</p>
+<h1>Two Independent Sub-channels</h1>
+<p class="lead">The biggest architectural change from DDR4 - and the one every other DDR5
+feature is built around.</p>
+
+<h2>One wide channel → two narrow ones</h2>
+<p><strong>DDR4:</strong> a DIMM presents one <strong>64-bit</strong> channel.<br>
+<strong>DDR5:</strong> the same DIMM is split into <strong>two independent 32-bit
+sub-channels</strong> (A and B), each with its <em>own</em> command/address bus.</p>
+
+<figure>
+<svg viewBox="0 0 560 180" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="DDR4 single 64-bit channel versus DDR5 two 32-bit sub-channels">
+  <style>
+    .box{rx:7;stroke-width:1.6}
+    .k{font:12px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+    .t{font:11px 'Segoe UI',sans-serif;fill:#5b6472;text-anchor:middle}
+    .ctrl{fill:#eef1f6;stroke:#9aa4b2;stroke-width:1.4}
+  </style>
+  <!-- DDR4 -->
+  <text class="k" x="20" y="28">DDR4</text>
+  <rect class="ctrl" x="20" y="38" width="70" height="34" rx="5"/><text class="t" x="55" y="59">ctrl</text>
+  <rect class="box" x="150" y="34" width="380" height="42" fill="#eaf0fb" stroke="#2d5bd0"/>
+  <text class="t" x="340" y="60">one 64-bit channel + CA  (one request at a time)</text>
+  <line x1="90" y1="55" x2="150" y2="55" stroke="#2d5bd0" stroke-width="6"/>
+
+  <!-- DDR5 -->
+  <text class="k" x="20" y="118">DDR5</text>
+  <rect class="ctrl" x="20" y="120" width="70" height="44" rx="5"/><text class="t" x="55" y="146">ctrl</text>
+  <rect class="box" x="150" y="112" width="380" height="24" fill="#e7f6ef" stroke="#0f7b5a"/>
+  <text class="t" x="340" y="128">sub-channel A: 32-bit + its own CA</text>
+  <rect class="box" x="150" y="142" width="380" height="24" fill="#e7f6ef" stroke="#0f7b5a"/>
+  <text class="t" x="340" y="158">sub-channel B: 32-bit + its own CA</text>
+  <line x1="90" y1="124" x2="150" y2="124" stroke="#0f7b5a" stroke-width="4"/>
+  <line x1="90" y1="154" x2="150" y2="154" stroke="#0f7b5a" stroke-width="4"/>
+</svg>
+<figcaption>DDR5 replaces one 64-bit channel with two independent 32-bit sub-channels, each
+separately commanded - so the module can work on two different requests at once.</figcaption>
+</figure>
+
+<h2>Why split it</h2>
+<p>Two narrow channels that work on <strong>different requests simultaneously</strong> keep
+the memory busier than one wide channel that can only do one thing at a time. Modern
+many-core CPUs generate lots of small, scattered accesses - exactly the workload that
+benefits from more <strong>independent</strong> channels.</p>
+
+<div class="box why">
+  <span class="label">This drives the next lesson</span>
+  Halving the channel width to 32 bits is <em>why</em> DDR5 doubles the burst length to 16
+  (next lesson) - together they still move one 64-byte cache line per access while gaining the
+  two-independent-channels advantage. With ECC, each sub-channel is 40 bits (32 data + 8 ECC).
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>How many channels does a DDR5 DIMM present, and how wide is each?</li>
+    <li>What does "independent" buy you over one wide channel?</li>
+    <li>Why does this change force a change in burst length?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="../../phase-1-ddr4-core/lessons/12-module-types.html">← Phase 1 end</a>
+  <a href="02-burst-length-16.html">Next → Burst length 16</a>
+</div>
+
+</body>
+</html>

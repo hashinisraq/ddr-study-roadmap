@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 5.3 - Track: Signal Integrity / PHY</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 5 · Track 3</p>
+<h1>Track: Signal Integrity / PCB / PHY</h1>
+<p class="lead">Make the physical electrical link work at multi-gigabit speeds - the deep
+version of Phase 0's signal-integrity intuition.</p>
+
+<h2>What you actually do</h2>
+<p>You keep the <strong>data eye</strong> open: model reflections, impedance, and crosstalk;
+apply equalization (like DDR5's <strong>DFE</strong>, Phase 2) to counter inter-symbol
+interference; and do channel modeling and <strong>de-embedding</strong> to separate the signal
+from the measurement setup.</p>
+
+<h2>What to learn</h2>
+<ul>
+  <li>Bogatin's <em>Signal and Power Integrity</em> and Howard Johnson's <em>High-Speed Digital
+  Design</em> - <strong>in full</strong> (Phase 0 only sampled them).</li>
+  <li>Transmission-line theory, termination, impedance control, crosstalk.</li>
+  <li>Eye diagrams, equalization (FFE/DFE), channel simulation; lab scopes and TDR.</li>
+</ul>
+
+<div class="box why">
+  <span class="label">Build to learn</span>
+  A concrete project: simulate a simple channel and watch the eye close as you raise the data
+  rate, then reopen it with equalization. DDR5's DFE and DCA (Phase 2) become your daily tools
+  here.
+</div>
+
+<div class="nav">
+  <a href="02-track-validation.html">← Track: Validation</a>
+  <a href="04-track-firmware.html">Next → Track: Firmware / training</a>
+</div>
+
+</body>
+</html>

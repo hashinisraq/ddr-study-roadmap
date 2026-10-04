@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 1.4 - DDR4 Core Timings</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 1 · Lesson 4</p>
+<h1>The Core Timings - and the Reason for Each</h1>
+<p class="lead">Don't memorize numbers; learn what each timing <em>protects</em>. Every one is
+a physical delay the bank needs between commands.</p>
+
+<h2>A read, drawn on a timeline</h2>
+<figure>
+<svg viewBox="0 0 560 170" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Timeline of ACT, RD, data burst, PRE with timings">
+  <style>
+    .axis{stroke:#9aa4b2;stroke-width:1.4}
+    .cmd{fill:#eaf0fb;stroke:#2d5bd0;stroke-width:1.5}
+    .burst{fill:#e7f6ef;stroke:#0f7b5a;stroke-width:1.5}
+    .lab{font:12px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600;text-anchor:middle}
+    .sp{font:11px 'Segoe UI',sans-serif;fill:#9a5b00;text-anchor:middle}
+    .span{stroke:#9a5b00;stroke-width:1.3}
+  </style>
+  <line class="axis" x1="30" y1="120" x2="540" y2="120"/>
+  <!-- ACT -->
+  <rect class="cmd" x="40" y="60" width="54" height="30" rx="5"/><text class="lab" x="67" y="80">ACT</text>
+  <!-- RD -->
+  <rect class="cmd" x="210" y="60" width="54" height="30" rx="5"/><text class="lab" x="237" y="80">RD</text>
+  <!-- data burst -->
+  <rect class="burst" x="330" y="60" width="90" height="30" rx="5"/><text class="lab" x="375" y="80">data BL8</text>
+  <!-- PRE -->
+  <rect class="cmd" x="460" y="60" width="60" height="30" rx="5"/><text class="lab" x="490" y="80">PRE</text>
+  <!-- tRCD span -->
+  <line class="span" x1="67" y1="45" x2="237" y2="45"/><text class="sp" x="150" y="40">tRCD</text>
+  <!-- CL span -->
+  <line class="span" x1="237" y1="110" x2="375" y2="110"/><text class="sp" x="306" y="106">CL</text>
+  <!-- tRAS span -->
+  <line class="span" x1="67" y1="140" x2="490" y2="140"/><text class="sp" x="280" y="155">tRAS (min row-open)</text>
+  <!-- tRP note after PRE -->
+  <text class="sp" x="525" y="50">then tRP</text>
+</svg>
+<figcaption>ACT opens the row; after <code>tRCD</code> you may RD; data appears <code>CL</code>
+later; the row must stay open ≥ <code>tRAS</code>; after PRE, wait <code>tRP</code> before the
+next ACT.</figcaption>
+</figure>
+
+<h2>The timings and what they protect</h2>
+<table>
+  <tr><th>Timing</th><th>Meaning</th><th>Physical reason</th></tr>
+  <tr><td><strong>tRCD</strong></td><td>ACT → RD/WR</td><td>Sense amps need time to latch the row into the row buffer.</td></tr>
+  <tr><td><strong>tRP</strong></td><td>PRE → next ACT</td><td>Bit lines must reset to the midpoint before a new row opens.</td></tr>
+  <tr><td><strong>tRAS</strong></td><td>ACT → PRE (min)</td><td>The destructive read must be fully restored before closing.</td></tr>
+  <tr><td><strong>tRC</strong></td><td>ACT → ACT same bank (= tRAS+tRP)</td><td>Full open-use-close-reopen cycle.</td></tr>
+  <tr><td><strong>CL</strong></td><td>RD → first data</td><td>Fixed clocks to fetch and drive data out.</td></tr>
+  <tr><td><strong>tWR</strong></td><td>last write data → PRE</td><td>Written data must settle into cells before the row closes.</td></tr>
+  <tr><td><strong>tWTR</strong></td><td>write → read</td><td>Internal data path must turn around.</td></tr>
+  <tr><td><strong>tRFC</strong></td><td>length of a REFRESH</td><td>Refreshing rows takes real time; the chip is busy.</td></tr>
+  <tr><td><strong>tREFI</strong></td><td>avg gap between REF (~7.8 µs)</td><td>Paces refresh so all cells are covered within 64 ms.</td></tr>
+  <tr><td><strong>tRRD</strong></td><td>ACT → ACT different banks</td><td>Each activation draws a current surge; space them out.</td></tr>
+  <tr><td><strong>tFAW</strong></td><td>window allowing only 4 ACTs</td><td>Four activations in quick succession is the power ceiling.</td></tr>
+  <tr><td><strong>tCCD_S / _L</strong></td><td>col → col, short / long</td><td>Back-to-back reads are faster across bank groups than within one.</td></tr>
+</table>
+
+<div class="box why">
+  <span class="label">The one mental model</span>
+  Opening and closing rows is <strong>slow</strong> (tRCD, tRP, tRAS). Reading columns off an
+  already-open row is <strong>fast</strong> (CL + burst). Good performance = keep useful rows
+  open and spread work across banks and bank groups.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Why does tRAS have a <em>minimum</em> (tie it back to Phase 0)?</li>
+    <li>What is the difference between tRFC and tREFI?</li>
+    <li>Why do tRRD and tFAW exist - what are they protecting?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="03-bank-state-machine.html">← The bank state machine</a>
+  <a href="05-burst-length-and-prefetch.html">Next → Burst length &amp; prefetch</a>
+</div>
+
+</body>
+</html>

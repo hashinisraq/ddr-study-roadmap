@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DDR4 & DDR5 - Learning</title>
+<link rel="stylesheet" href="assets/lesson.css">
+<style>
+  .phase{margin:24px 0}
+  .desc{color:var(--muted);margin:2px 0 8px}
+  ul{list-style:none;margin:0;padding:0}
+  li{margin:6px 0}
+  .num{display:inline-block;min-width:26px;color:var(--muted);font-variant-numeric:tabular-nums;font-size:12px}
+  li a{color:var(--accent);text-decoration:none;font-weight:600}
+  li a:hover{text-decoration:underline}
+  ul.res li{margin:8px 0}
+  ul.res a{font-weight:600}
+  .hero{background:var(--accent-soft);border:1px solid #cdddf7;border-radius:10px;padding:14px 16px;margin:14px 0}
+  .count{color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+  <p class="kicker">Zero to Hero</p>
+  <h1>DDR4 &amp; DDR5 - Learning</h1>
+  <p class="lead">A complete, ordered course on DDR memory - from "what is a RAM stick" all the
+  way to DDR5 internals and specialization. Written for a general reader; read top to bottom.</p>
+  <div class="hero">
+    <strong>New here?</strong> Start at <a href="phase-0-foundations/lessons/01-what-is-memory.html">Phase 0, Lesson 1</a>.
+    Every lesson has <em>Previous</em> / <em>Next</em> links, so you can just keep clicking.
+  </div>
+  <p class="count">49 illustrated lessons across 6 phases.</p>
+  <section class="phase">
+    <h2>Phase 0 - Foundations</h2>
+    <p class="desc">From zero: what memory is, up through the physics of a DRAM bit.</p>
+    <ul>
+      <li><span class="num">01</span> <a href="phase-0-foundations/lessons/01-what-is-memory.html">What is memory (RAM)?</a></li>
+      <li><span class="num">02</span> <a href="phase-0-foundations/lessons/02-the-memory-stick-and-chips.html">The memory stick (DIMM) and its chips</a></li>
+      <li><span class="num">03</span> <a href="phase-0-foundations/lessons/03-rank-and-chip-width.html">How chips team up: rank and chip width</a></li>
+      <li><span class="num">04</span> <a href="phase-0-foundations/lessons/04-banks-and-bank-groups.html">Inside a chip: banks and bank groups</a></li>
+      <li><span class="num">05</span> <a href="phase-0-foundations/lessons/05-dram-cell-structure.html">DRAM cell structure: capacitor + access transistor</a></li>
+      <li><span class="num">06</span> <a href="phase-0-foundations/lessons/06-refresh-and-destructive-reads.html">Why DRAM needs refresh: leakage & destructive reads</a></li>
+      <li><span class="num">07</span> <a href="phase-0-foundations/lessons/07-sense-amplifiers-and-row-buffer.html">Sense amplifiers & the row buffer</a></li>
+      <li><span class="num">08</span> <a href="phase-0-foundations/lessons/08-sdram-clocking-and-ddr.html">SDRAM clocking & double data rate</a></li>
+      <li><span class="num">09</span> <a href="phase-0-foundations/lessons/09-setup-hold-and-metastability.html">Digital timing: setup, hold & metastability</a></li>
+      <li><span class="num">10</span> <a href="phase-0-foundations/lessons/10-single-ended-vs-differential.html">Buses: single-ended vs differential signaling</a></li>
+      <li><span class="num">11</span> <a href="phase-0-foundations/lessons/11-signal-integrity-basics.html">Signal integrity: reflections & termination</a></li>
+    </ul>
+  </section>
+  <section class="phase">
+    <h2>Phase 1 - DDR4 Core</h2>
+    <p class="desc">The real foundation: how DDR4 is organized, commanded, and timed.</p>
+    <ul>
+      <li><span class="num">12</span> <a href="phase-1-ddr4-core/lessons/01-organization-hierarchy.html">Organization hierarchy (channel to cell)</a></li>
+      <li><span class="num">13</span> <a href="phase-1-ddr4-core/lessons/02-command-set.html">The command set (ACT, RD, WR, PRE, REF, MRS)</a></li>
+      <li><span class="num">14</span> <a href="phase-1-ddr4-core/lessons/03-bank-state-machine.html">The bank state machine</a></li>
+      <li><span class="num">15</span> <a href="phase-1-ddr4-core/lessons/04-core-timings.html">The core timings (tRCD, tRP, tRAS, CL, tFAW...)</a></li>
+      <li><span class="num">16</span> <a href="phase-1-ddr4-core/lessons/05-burst-length-and-prefetch.html">Burst length, prefetch & auto-precharge</a></li>
+      <li><span class="num">17</span> <a href="phase-1-ddr4-core/lessons/06-refresh-modes.html">Refresh modes</a></li>
+      <li><span class="num">18</span> <a href="phase-1-ddr4-core/lessons/07-initialization-and-training.html">Initialization & training</a></li>
+      <li><span class="num">19</span> <a href="phase-1-ddr4-core/lessons/08-mode-registers.html">Mode registers (MR0-MR7)</a></li>
+      <li><span class="num">20</span> <a href="phase-1-ddr4-core/lessons/09-electrical-pod12-odt-dbi.html">Electrical: POD12, ODT, DBI</a></li>
+      <li><span class="num">21</span> <a href="phase-1-ddr4-core/lessons/10-bank-groups.html">Bank groups (tCCD_S vs tCCD_L)</a></li>
+      <li><span class="num">22</span> <a href="phase-1-ddr4-core/lessons/11-reliability-crc-ca-parity.html">Reliability: data CRC & CA parity</a></li>
+      <li><span class="num">23</span> <a href="phase-1-ddr4-core/lessons/12-module-types.html">Module types (UDIMM / RDIMM / LRDIMM)</a></li>
+    </ul>
+  </section>
+  <section class="phase">
+    <h2>Phase 2 - DDR5 Delta</h2>
+    <p class="desc">What DDR5 changed over DDR4, and why.</p>
+    <ul>
+      <li><span class="num">24</span> <a href="phase-2-ddr5-delta/lessons/01-two-sub-channels.html">Two independent sub-channels</a></li>
+      <li><span class="num">25</span> <a href="phase-2-ddr5-delta/lessons/02-burst-length-16.html">Burst length 16 (BL16)</a></li>
+      <li><span class="num">26</span> <a href="phase-2-ddr5-delta/lessons/03-more-bank-groups-and-banks.html">More bank groups & banks</a></li>
+      <li><span class="num">27</span> <a href="phase-2-ddr5-delta/lessons/04-on-die-ecc.html">On-die ECC</a></li>
+      <li><span class="num">28</span> <a href="phase-2-ddr5-delta/lessons/05-link-ecc-and-crc.html">Link / system ECC & CRC changes</a></li>
+      <li><span class="num">29</span> <a href="phase-2-ddr5-delta/lessons/06-refresh-same-bank-and-rfm.html">Same-bank refresh & RFM</a></li>
+      <li><span class="num">30</span> <a href="phase-2-ddr5-delta/lessons/07-decision-feedback-equalization.html">Decision Feedback Equalization (DFE)</a></li>
+      <li><span class="num">31</span> <a href="phase-2-ddr5-delta/lessons/08-duty-cycle-adjuster.html">Duty Cycle Adjuster (DCA/DCM)</a></li>
+      <li><span class="num">32</span> <a href="phase-2-ddr5-delta/lessons/09-power-pmic-and-voltage.html">Power: on-DIMM PMIC & 1.1 V</a></li>
+      <li><span class="num">33</span> <a href="phase-2-ddr5-delta/lessons/10-expanded-mode-registers.html">Expanded mode-register space</a></li>
+      <li><span class="num">34</span> <a href="phase-2-ddr5-delta/lessons/11-ca-changes-and-training.html">CA changes & new training</a></li>
+      <li><span class="num">35</span> <a href="phase-2-ddr5-delta/lessons/12-modules-and-rcd.html">Modules & the RCD</a></li>
+      <li><span class="num">36</span> <a href="phase-2-ddr5-delta/lessons/13-speed-roadmap.html">The speed roadmap</a></li>
+    </ul>
+  </section>
+  <section class="phase">
+    <h2>Phase 3 - Specs & Datasheets</h2>
+    <p class="desc">How to read the JEDEC specs and real datasheets without drowning.</p>
+    <ul>
+      <li><span class="num">37</span> <a href="phase-3-specs-and-datasheets/lessons/01-how-specs-are-structured.html">How a JEDEC spec is structured</a></li>
+      <li><span class="num">38</span> <a href="phase-3-specs-and-datasheets/lessons/02-reading-order-strategy.html">A reading order that works</a></li>
+      <li><span class="num">39</span> <a href="phase-3-specs-and-datasheets/lessons/03-datasheets-vs-spec.html">Datasheets vs the JEDEC spec</a></li>
+    </ul>
+  </section>
+  <section class="phase">
+    <h2>Phase 4 - Hands-on</h2>
+    <p class="desc">Exercises that turn knowledge into intuition.</p>
+    <ul>
+      <li><span class="num">40</span> <a href="phase-4-hands-on/lessons/01-trace-a-transaction.html">Trace a full transaction (hit / miss / conflict)</a></li>
+      <li><span class="num">41</span> <a href="phase-4-hands-on/lessons/02-redraw-the-state-machine.html">Redraw the bank state machine from memory</a></li>
+      <li><span class="num">42</span> <a href="phase-4-hands-on/lessons/03-dram-simulators.html">Run a DRAM simulator</a></li>
+      <li><span class="num">43</span> <a href="phase-4-hands-on/lessons/04-timing-experiments.html">Change a timing & predict the result</a></li>
+      <li><span class="num">44</span> <a href="phase-4-hands-on/lessons/05-controller-datasheet.html">Read a real controller datasheet</a></li>
+    </ul>
+  </section>
+  <section class="phase">
+    <h2>Phase 5 - Specialization</h2>
+    <p class="desc">Pick a track and go deep.</p>
+    <ul>
+      <li><span class="num">45</span> <a href="phase-5-specialization/lessons/01-track-controller-rtl.html">Track: Memory controller / RTL design</a></li>
+      <li><span class="num">46</span> <a href="phase-5-specialization/lessons/02-track-validation.html">Track: Validation / test / post-silicon</a></li>
+      <li><span class="num">47</span> <a href="phase-5-specialization/lessons/03-track-signal-integrity.html">Track: Signal integrity / PCB / PHY</a></li>
+      <li><span class="num">48</span> <a href="phase-5-specialization/lessons/04-track-firmware.html">Track: Firmware / training</a></li>
+      <li><span class="num">49</span> <a href="phase-5-specialization/lessons/05-track-architecture.html">Track: System architecture / performance</a></li>
+    </ul>
+  </section>
+
+  <section class="phase">
+    <h2>Go deeper (optional resources)</h2>
+    <p class="desc">Free and paid materials if you want more than the lessons.</p>
+    <ul class="res">
+      <li><strong>Foundations:</strong>
+        <a href="https://www.akkadia.org/drepper/cpumemory.pdf">Drepper - What Every Programmer Should Know About Memory</a> (free PDF) &middot;
+        <a href="https://safari.ethz.ch/architecture/">Onur Mutlu - Computer Architecture lectures</a> (free)</li>
+      <li><strong>DDR4 / DDR5 standards:</strong>
+        <a href="https://www.jedec.org">JEDEC JESD79-4 &amp; JESD79-5</a> (free account) &middot;
+        <a href="https://www.micron.com">Micron datasheets &amp; technical notes</a></li>
+      <li><strong>Textbooks:</strong> Jacob, Ng &amp; Wang - <em>Memory Systems: Cache, DRAM, Disk</em> &middot;
+        Hennessy &amp; Patterson - <em>Computer Architecture</em> &middot;
+        Bogatin - <em>Signal &amp; Power Integrity</em></li>
+      <li><strong>Simulators:</strong>
+        <a href="https://github.com/CMU-SAFARI/ramulator2">Ramulator 2.0</a> &middot;
+        <a href="https://github.com/umd-memsys/DRAMsim3">DRAMSim3</a> &middot;
+        <a href="https://www.gem5.org">gem5</a></li>
+      <li><strong>Research frontier:</strong> <a href="https://safari.ethz.ch">SAFARI Research Group</a> (RowHammer, refresh, PIM)</li>
+    </ul>
+  </section>
+</body>
+</html>

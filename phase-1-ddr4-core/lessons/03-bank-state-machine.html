@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 1.3 - The Bank State Machine</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 1 · Lesson 3</p>
+<h1>The Bank State Machine (the grammar)</h1>
+<p class="lead">Each bank is always in a state, and commands move it between states. This is
+the grammar that says which commands are legal when.</p>
+
+<figure>
+<svg viewBox="0 0 560 230" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Bank state machine: idle, active, read/write, precharge">
+  <style>
+    .st{fill:#eaf0fb;stroke:#2d5bd0;stroke-width:1.8}
+    .lab{font:13px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600;text-anchor:middle}
+    .sub{font:10.5px 'Segoe UI',sans-serif;fill:#5b6472;text-anchor:middle}
+    .edge{fill:none;stroke:#1a1f2b;stroke-width:1.8;marker-end:url(#a)}
+    .cmd{font:11.5px 'Segoe UI',sans-serif;fill:#c0392b;font-weight:600}
+  </style>
+  <defs><marker id="a" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#1a1f2b"/></marker></defs>
+  <!-- IDLE -->
+  <ellipse class="st" cx="100" cy="115" rx="66" ry="40"/>
+  <text class="lab" x="100" y="112">IDLE</text><text class="sub" x="100" y="130">row closed</text>
+  <!-- ACTIVE -->
+  <ellipse class="st" cx="320" cy="115" rx="72" ry="40"/>
+  <text class="lab" x="320" y="112">ACTIVE</text><text class="sub" x="320" y="130">row open</text>
+  <!-- RD/WR self loop target -->
+  <ellipse class="st" cx="490" cy="115" rx="56" ry="36"/>
+  <text class="lab" x="490" y="112">RD / WR</text><text class="sub" x="490" y="130">access cols</text>
+
+  <!-- IDLE -> ACTIVE (ACT) -->
+  <path class="edge" d="M166,100 C210,80 250,82 252,95"/>
+  <text class="cmd" x="185" y="78">ACTIVATE</text>
+  <!-- ACTIVE -> RD/WR -->
+  <path class="edge" d="M392,108 C415,104 420,108 436,110"/>
+  <text class="cmd" x="398" y="96">RD / WR</text>
+  <!-- RD/WR -> ACTIVE (stay active) -->
+  <path class="edge" d="M452,135 C425,150 405,145 392,132"/>
+  <text class="sub" x="410" y="162">stays ACTIVE</text>
+  <!-- ACTIVE -> IDLE (PRE) -->
+  <path class="edge" d="M254,138 C230,156 190,152 160,135"/>
+  <text class="cmd" x="200" y="168">PRECHARGE</text>
+</svg>
+<figcaption>IDLE → (ACTIVATE) → ACTIVE → (RD/WR, stays active) → (PRECHARGE) → IDLE. Different
+banks run this machine independently and in parallel.</figcaption>
+</figure>
+
+<h2>The two rules that matter</h2>
+<ul>
+  <li>You can only <strong>RD/WR a bank that is ACTIVE</strong> (a row is open). You cannot
+  read a closed row.</li>
+  <li>You can only <strong>ACTIVATE a bank that is IDLE</strong>. To switch to a different
+  row you must <strong>PRECHARGE first</strong> - you cannot open a row on top of another.</li>
+</ul>
+
+<div class="box why">
+  <span class="label">Why every timing hangs off this</span>
+  Each arrow has a minimum time attached (next lesson): ACT→RD waits <code>tRCD</code>,
+  PRE→ACT waits <code>tRP</code>, and a row must stay ACTIVE at least <code>tRAS</code>. The
+  state machine tells you <em>which</em> move is legal; the timings tell you <em>how long</em>
+  before the next move.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>From IDLE, what command must come first, and why can't you RD immediately?</li>
+    <li>You have row 5 open but need row 9 in the same bank. What sequence gets you there?</li>
+    <li>Why can different banks be in different states at the same time?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="02-command-set.html">← The command set</a>
+  <a href="04-core-timings.html">Next → The core timings</a>
+</div>
+
+</body>
+</html>

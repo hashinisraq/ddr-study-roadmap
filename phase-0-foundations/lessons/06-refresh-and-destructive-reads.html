@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 0.6 - Refresh, Leakage &amp; Destructive Reads</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 0 · Lesson 6</p>
+<h1>Why DRAM Needs Refresh: Leakage &amp; Destructive Reads</h1>
+<p class="lead">The capacitor from Lesson 1 has two inconvenient habits: it leaks, and
+reading it wipes it. Both are why DRAM behaves the way it does.</p>
+
+<h2>Problem 1: the charge leaks away</h2>
+<p>The storage capacitor is tiny and not perfectly sealed, so its charge
+<strong>drains over a few milliseconds</strong>. Left alone, every stored 1 would fade to
+0 and the data would rot.</p>
+
+<figure>
+<svg viewBox="0 0 560 230" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Charge decaying over time and being restored by refresh">
+  <style>
+    .ax{stroke:#9aa4b2;stroke-width:1.5}
+    .decay{fill:none;stroke:#c0392b;stroke-width:2.4}
+    .refresh{fill:none;stroke:#2d5bd0;stroke-width:2.4}
+    .th{stroke:#9a5b00;stroke-width:1.5;stroke-dasharray:5 4}
+    .t{font:12px 'Segoe UI',sans-serif;fill:#5b6472}
+    .k{font:12px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+  </style>
+  <!-- axes -->
+  <line class="ax" x1="60" y1="20" x2="60" y2="180"/>
+  <line class="ax" x1="60" y1="180" x2="530" y2="180"/>
+  <text class="t" x="8" y="30">charge</text>
+  <text class="t" x="495" y="198">time</text>
+  <!-- threshold -->
+  <line class="th" x1="60" y1="140" x2="530" y2="140"/>
+  <text class="t" x="330" y="135">data-loss threshold</text>
+  <!-- without refresh: decay to below threshold -->
+  <path class="decay" d="M60,40 C150,70 230,150 320,172"/>
+  <text class="k" x="250" y="70" fill="#c0392b">no refresh → data rots</text>
+  <!-- with refresh: sawtooth topping up -->
+  <path class="refresh" d="M60,40 L60,40 C100,60 130,95 150,100 L150,40
+                            C190,60 220,95 240,100 L240,40
+                            C280,60 310,95 330,100 L330,40
+                            C370,60 400,95 420,100"/>
+  <text class="k" x="150" y="30" fill="#2d5bd0">refresh tops it up every ~64 ms</text>
+</svg>
+<figcaption>Charge decays (red). Refresh periodically rewrites every cell to restore full
+charge (blue sawtooth), keeping it above the threshold where a 1 is still readable.</figcaption>
+</figure>
+
+<p><strong>Refresh</strong> is the fix: the chip periodically reads each row and writes it
+straight back, "topping up the buckets." In DDR4 every cell must be refreshed about every
+<strong>64&nbsp;ms</strong>.</p>
+
+<div class="box why">
+  <span class="label">Why "Dynamic" RAM</span>
+  The "D" in DRAM means <em>dynamic</em> - it forgets unless constantly reminded. (Contrast
+  SRAM in CPU caches, which holds its value as long as it has power, but costs far more area
+  per bit.) Refresh is not a bug; it is the price of DRAM's density and low cost.
+</div>
+
+<h2>Problem 2: reading destroys the value</h2>
+<p>When the transistor opens, the capacitor's tiny charge spills onto the long bit line and
+<strong>mixes with the bit line's own charge</strong>. The capacitor is left in an
+in-between state - the original value has been <strong>destroyed</strong> by the act of
+reading it.</p>
+
+<figure>
+<svg viewBox="0 0 560 150" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Destructive read then restore sequence">
+  <style>
+    .stepbox{fill:#eaf0fb;stroke:#2d5bd0;stroke-width:1.5;rx:8}
+    .arr{stroke:#5b6472;stroke-width:2;marker-end:url(#a)}
+    .s{font:12.5px 'Segoe UI',sans-serif;fill:#1a1f2b}
+    .n{font:11px 'Segoe UI',sans-serif;fill:#5b6472}
+  </style>
+  <defs><marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+    <path d="M0,0 L9,4.5 L0,9 z" fill="#5b6472"/></marker></defs>
+  <rect x="20" y="45" width="130" height="56" rx="8" fill="#eaf0fb" stroke="#2d5bd0" stroke-width="1.5"/>
+  <text class="s" x="40" y="70">1. Open row</text>
+  <text class="n" x="33" y="88">charge spills to bitline</text>
+  <line class="arr" x1="152" y1="73" x2="196" y2="73"/>
+  <rect x="200" y="45" width="150" height="56" rx="8" fill="#eaf0fb" stroke="#2d5bd0" stroke-width="1.5"/>
+  <text class="s" x="218" y="70">2. Sense &amp; amplify</text>
+  <text class="n" x="218" y="88">detect tiny nudge → full 0/1</text>
+  <line class="arr" x1="352" y1="73" x2="396" y2="73"/>
+  <rect x="400" y="45" width="140" height="56" rx="8" fill="#e7f6ef" stroke="#0f7b5a" stroke-width="1.5"/>
+  <text class="s" x="418" y="70">3. Restore</text>
+  <text class="n" x="416" y="88">write value back to cell</text>
+</svg>
+<figcaption>Every read is really read-then-restore. Step 2-3 is the sense amplifier's job
+(Lesson 3).</figcaption>
+</figure>
+
+<p>So the hardware always <strong>re-writes the value back</strong> immediately after
+sensing it. A "read" is really <em>open → sense → restore</em>.</p>
+
+<div class="box why">
+  <span class="label">Why this matters later</span>
+  Because every read must finish restoring the row, DRAM has a <strong>minimum time a row
+  must stay open</strong> (you will meet it as <code>tRAS</code> in Phase 1). Refresh and
+  the restore step are the physical reasons behind several DDR timing rules.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Why does a DRAM cell lose its data if left alone, and roughly how often must DDR4
+    refresh?</li>
+    <li>What does "reading is destructive" mean, and what does the chip do about it?</li>
+    <li>Why does the restore step force a minimum row-open time?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="05-dram-cell-structure.html">← DRAM cell structure</a>
+  <a href="07-sense-amplifiers-and-row-buffer.html">Next → Sense amplifiers &amp; the row buffer</a>
+</div>
+
+</body>
+</html>

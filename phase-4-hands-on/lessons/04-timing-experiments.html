@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 4.4 - Timing Experiments</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 4 · Lesson 4 · Exercise</p>
+<h1>Change a Timing and Predict the Result</h1>
+<p class="lead">The exercise that turns timing parameters from trivia into a model you can
+reason with - predict first, then verify.</p>
+
+<h2>The experiment</h2>
+<p>In your simulator (Lesson 3), change one timing at a time, rerun, and <strong>predict the
+effect before you look</strong>:</p>
+<table>
+  <tr><th>Change</th><th>Predict</th></tr>
+  <tr><td>Loosen <strong>tRCD</strong> (slower row open)</td><td>Every row open costs more → random-heavy workloads slow down most (more opens).</td></tr>
+  <tr><td>Loosen <strong>tFAW</strong> (fewer activations per window)</td><td>Bursty multi-bank workloads throttle - you can't open rows as fast.</td></tr>
+  <tr><td>Tighten <strong>CL</strong></td><td>Lower read latency; helps latency-bound more than bandwidth-bound workloads.</td></tr>
+</table>
+
+<h2>Why prediction is the point</h2>
+<p>Anyone can change a number and read a result. The skill is <strong>predicting</strong> the
+result from the model and having it come true. When your prediction matches, the timings have
+stopped being arbitrary and become a working mental model.</p>
+
+<div class="box why">
+  <span class="label">This is the phase milestone</span>
+  Change tRCD and tFAW, correctly predict the effect on a <em>streaming</em> vs <em>random</em>
+  workload, and explain it via row hits/misses and bank parallelism. If your explanation holds,
+  you understand DDR at a working-engineer level.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Which workload is hurt most by a looser tRCD, and why?</li>
+    <li>What kind of workload does tFAW throttle?</li>
+    <li>Did your predictions match the simulator? Where they didn't, what did you learn?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="03-dram-simulators.html">← DRAM simulators</a>
+  <a href="05-controller-datasheet.html">Next → Read a controller datasheet</a>
+</div>
+
+</body>
+</html>

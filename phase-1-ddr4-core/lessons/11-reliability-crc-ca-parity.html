@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 1.11 - Reliability: CRC &amp; CA Parity</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 1 · Lesson 11</p>
+<h1>Reliability: Data CRC &amp; Command/Address Parity</h1>
+<p class="lead">Two lightweight guards that let DDR4 <em>detect</em> corruption on its buses
+before it turns into silent bad data.</p>
+
+<h2>Write data CRC</h2>
+<p>When the controller writes data, it can send a <strong>CRC checksum</strong> alongside the
+data burst. The chip recomputes the checksum and, if it doesn't match, flags an error - so a
+glitch on the data bus is <strong>detected</strong> rather than silently stored.</p>
+
+<h2>Command/Address (CA) parity</h2>
+<p>A garbled <em>command</em> is dangerous - imagine a flipped bit turning a READ into a
+PRECHARGE. <strong>CA parity</strong> adds a parity bit over the command/address bus so the
+chip can catch a corrupted command and raise an error instead of executing it.</p>
+
+<table>
+  <tr><th>Guard</th><th>Protects</th><th>Detects / corrects?</th></tr>
+  <tr><td>Data-bus CRC</td><td>Write data on the DQ lines</td><td>Detects corruption (not correct)</td></tr>
+  <tr><td>CA parity</td><td>Commands/addresses on the CA bus</td><td>Detects a bad command</td></tr>
+</table>
+
+<div class="box why">
+  <span class="label">Detect vs correct</span>
+  These are <strong>detection</strong> mechanisms - they catch errors so the system can retry
+  or flag them. Full <strong>correction</strong> of stored data is <strong>ECC</strong> (an
+  extra chip per rank, 72 bits instead of 64), standard in servers. DDR5 adds
+  <strong>on-die ECC</strong> inside every chip (Phase 2).
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>What does write-data CRC protect, and what does it do on a mismatch?</li>
+    <li>Why is CA parity important - give a concrete failure it prevents.</li>
+    <li>What's the difference between these guards and ECC?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="10-bank-groups.html">← Bank groups</a>
+  <a href="12-module-types.html">Next → Module types</a>
+</div>
+
+</body>
+</html>

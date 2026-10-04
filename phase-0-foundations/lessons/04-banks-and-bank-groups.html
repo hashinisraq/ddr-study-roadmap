@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 0.4 - Inside a Chip: Banks and Bank Groups</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 0 · Lesson 4</p>
+<h1>Inside a Chip: Banks and Bank Groups</h1>
+<p class="lead">Now we open up one chip. The key idea: a chip is split into many independent
+sections so it can do several things at once.</p>
+
+<h2>A chip is divided into "banks"</h2>
+<p>A memory chip is not one single blob of storage. Inside, it is divided into separate
+sections called <strong>banks</strong>. Each bank can be working on its own task
+<strong>at the same time</strong> as the others.</p>
+<p>Why split it up? For <strong>speed through parallelism</strong>. Reaching into memory takes a
+little while; if there were only one bank, every request would have to wait in a single line.
+With many banks, while one bank is busy fetching, another can already be serving the next
+request.</p>
+
+<figure>
+<svg viewBox="0 0 540 210" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="One chip divided into bank groups, each containing several banks">
+  <style>
+    .chip{fill:#f4f6f9;stroke:#1a1f2b;stroke-width:1.8}
+    .grp{fill:#eef1f6;stroke:#9aa4b2;stroke-width:1.3}
+    .bank{fill:#eaf0fb;stroke:#2d5bd0;stroke-width:1.2}
+    .k{font:12px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600;text-anchor:middle}
+    .t{font:9.5px 'Segoe UI',sans-serif;fill:#5b6472;text-anchor:middle}
+    .g{font:10px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600;text-anchor:middle}
+  </style>
+  <rect class="chip" x="20" y="25" width="500" height="170" rx="8"/>
+  <text class="k" x="270" y="18">one DRAM chip</text>
+  <!-- 4 groups -->
+  <g>
+    <!-- group template -->
+    <g>
+      <rect class="grp" x="40"  y="45" width="105" height="135" rx="6"/><text class="g" x="92"  y="62">bank group A</text>
+      <rect class="bank" x="52" y="72" width="38" height="30" rx="3"/><text class="t" x="71" y="91">bank</text>
+      <rect class="bank" x="96" y="72" width="38" height="30" rx="3"/><text class="t" x="115" y="91">bank</text>
+      <rect class="bank" x="52" y="112" width="38" height="30" rx="3"/><text class="t" x="71" y="131">bank</text>
+      <rect class="bank" x="96" y="112" width="38" height="30" rx="3"/><text class="t" x="115" y="131">bank</text>
+    </g>
+    <g>
+      <rect class="grp" x="160" y="45" width="105" height="135" rx="6"/><text class="g" x="212" y="62">bank group B</text>
+      <rect class="bank" x="172" y="72" width="38" height="30" rx="3"/><rect class="bank" x="216" y="72" width="38" height="30" rx="3"/>
+      <rect class="bank" x="172" y="112" width="38" height="30" rx="3"/><rect class="bank" x="216" y="112" width="38" height="30" rx="3"/>
+    </g>
+    <g>
+      <rect class="grp" x="280" y="45" width="105" height="135" rx="6"/><text class="g" x="332" y="62">bank group C</text>
+      <rect class="bank" x="292" y="72" width="38" height="30" rx="3"/><rect class="bank" x="336" y="72" width="38" height="30" rx="3"/>
+      <rect class="bank" x="292" y="112" width="38" height="30" rx="3"/><rect class="bank" x="336" y="112" width="38" height="30" rx="3"/>
+    </g>
+    <g>
+      <rect class="grp" x="400" y="45" width="105" height="135" rx="6"/><text class="g" x="452" y="62">bank group D</text>
+      <rect class="bank" x="412" y="72" width="38" height="30" rx="3"/><rect class="bank" x="456" y="72" width="38" height="30" rx="3"/>
+      <rect class="bank" x="412" y="112" width="38" height="30" rx="3"/><rect class="bank" x="456" y="112" width="38" height="30" rx="3"/>
+    </g>
+  </g>
+</svg>
+<figcaption>Inside one chip: banks are grouped into bank groups. Here, 4 groups of 4 banks =
+16 banks - many independent sections that can work in parallel.</figcaption>
+</figure>
+
+<h2>Banks are organized into "bank groups"</h2>
+<p>DDR4 and DDR5 take this one step further: banks are gathered into <strong>bank groups</strong>.
+This extra level lets the memory switch between <em>different groups</em> especially quickly.
+(Exactly why that is faster is a DDR4 detail we'll cover in Phase 1 - for now, just know the
+two levels exist: <strong>bank groups</strong>, and <strong>banks</strong> inside them.)</p>
+
+<h2>Putting the whole picture together</h2>
+<p>You now have the full "nesting," from biggest to smallest:</p>
+<table>
+  <tr><th>Level</th><th>In plain words</th></tr>
+  <tr><td>Stick (DIMM)</td><td>the whole module you plug in</td></tr>
+  <tr><td>Rank</td><td>a team of chips that together make 64 bits</td></tr>
+  <tr><td>Chip</td><td>one of the black memory packages</td></tr>
+  <tr><td>Bank group → Bank</td><td>independent sections inside a chip (for parallelism)</td></tr>
+  <tr><td>Cell</td><td>where a single bit actually lives (next lessons)</td></tr>
+</table>
+
+<div class="box analogy">
+  <span class="label">Analogy</span>
+  A chip is a <strong>supermarket</strong>; banks are its many <strong>checkout counters</strong>.
+  One counter alone makes everyone queue; many counters serve lots of shoppers at once. Bank
+  groups are like <strong>zones of counters</strong> that are quick to hop between.
+</div>
+
+<div class="box why">
+  <span class="label">You're now ready for the physics</span>
+  That's the whole structure, top to bottom. From the next lesson we zoom into a single
+  <strong>cell</strong> - the tiny part that stores one bit - and build back up. Everything in
+  DDR4 (Phase 1) sits on this foundation.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Why is a chip divided into many banks?</li>
+    <li>What extra level sits above banks in DDR4/DDR5?</li>
+    <li>Recite the nesting from stick down to cell.</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="03-rank-and-chip-width.html">← Rank &amp; chip width</a>
+  <a href="05-dram-cell-structure.html">Next → DRAM cell structure</a>
+</div>
+
+</body>
+</html>

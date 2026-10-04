@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 5.2 - Track: Validation / Test</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 5 · Track 2</p>
+<h1>Track: Validation / Test / Post-silicon</h1>
+<p class="lead">Prove a chip or module actually meets spec across voltage, temperature, and
+speed - and find where it breaks.</p>
+
+<h2>What you actually do</h2>
+<p>You verify real silicon against the standard. The core skill is <strong>margining</strong>:
+sweeping a parameter (voltage, timing) until it fails, to map the safe operating window - often
+visualized as a <strong>shmoo plot</strong>. You run JEDEC <strong>compliance</strong> tests,
+use built-in self-test (<strong>BIST</strong>), and capture signals with
+<strong>protocol analyzers</strong>.</p>
+
+<h2>What to learn</h2>
+<ul>
+  <li>The exact spec limits (Phase 3) - you test against them.</li>
+  <li>Lab equipment: protocol analyzers, scopes, test fixtures.</li>
+  <li>Statistical test methods; corner characterization (voltage/temperature).</li>
+</ul>
+
+<div class="box why">
+  <span class="label">Build to learn</span>
+  A concrete project: take any tunable system (even a simulator or an overclockable DIMM) and
+  produce a shmoo - map where it passes and fails as you sweep two parameters. Learning to read
+  that safe-window boundary is the heart of validation.
+</div>
+
+<div class="nav">
+  <a href="01-track-controller-rtl.html">← Track: Controller / RTL</a>
+  <a href="03-track-signal-integrity.html">Next → Track: Signal integrity</a>
+</div>
+
+</body>
+</html>

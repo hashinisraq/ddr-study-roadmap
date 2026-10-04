@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 1.8 - Mode Registers (MR0-MR7)</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 1 · Lesson 8</p>
+<h1>Mode Registers (MR0-MR7)</h1>
+<p class="lead">The chip's settings panel. You configure latencies and features by writing
+mode registers with the MRS command.</p>
+
+<h2>What lives where</h2>
+<table>
+  <tr><th>Register</th><th>Configures (roughly)</th></tr>
+  <tr><td><strong>MR0</strong></td><td>CAS latency (CL), burst length, read burst type.</td></tr>
+  <tr><td><strong>MR1</strong></td><td>DLL enable, output drive strength, ODT values, write-leveling enable.</td></tr>
+  <tr><td><strong>MR2</strong></td><td>CAS write latency (CWL), dynamic ODT, temperature-controlled refresh.</td></tr>
+  <tr><td><strong>MR3</strong></td><td>MPR (multi-purpose register) mode, fine-granularity refresh.</td></tr>
+  <tr><td><strong>MR4</strong></td><td>CAL, gear-down mode, read/write preamble, various controls.</td></tr>
+  <tr><td><strong>MR5</strong></td><td>CA parity, data-bus inversion (DBI), ODT input buffer.</td></tr>
+  <tr><td><strong>MR6</strong></td><td>tCCD_L setting, DQ Vref training controls.</td></tr>
+</table>
+
+<h2>How to think about it</h2>
+<p>You do <strong>not</strong> memorize the bit layouts. You learn two things:
+(1) <strong>that</strong> configuration lives in mode registers, and (2) <strong>how to look
+up</strong> a given setting's register and bits in the datasheet when you need it. The exact
+fields are reference material - the structure is what you keep in your head.</p>
+
+<div class="box why">
+  <span class="label">Where you'll use this</span>
+  During initialization (Lesson 7), the controller writes these registers to pick CL, CWL,
+  burst length, ODT, DBI, and which features are on - matching the chip to the board and the
+  target speed. DDR5 keeps the idea but explodes the number of registers (Phase 2).
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Which register holds CAS latency and burst length?</li>
+    <li>What command writes a mode register?</li>
+    <li>Why is it fine <em>not</em> to memorize the bit fields?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="07-initialization-and-training.html">← Initialization &amp; training</a>
+  <a href="09-electrical-pod12-odt-dbi.html">Next → Electrical: POD12, ODT, DBI</a>
+</div>
+
+</body>
+</html>

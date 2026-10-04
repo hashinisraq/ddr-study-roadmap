@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2.6 - Same-bank Refresh &amp; RFM</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 2 · Lesson 6</p>
+<h1>Same-bank Refresh &amp; Refresh Management (RFM)</h1>
+<p class="lead">DDR5 makes refresh hurt less, and adds a new command aimed squarely at the
+RowHammer problem.</p>
+
+<h2>Same-bank refresh (REFsb)</h2>
+<p><strong>DDR4</strong> mostly refreshed <em>all</em> banks together, freezing the whole chip
+for the refresh duration (<code>tRFC</code>). <strong>DDR5</strong> can refresh
+<strong>one bank per bank group</strong> while the other banks keep serving requests.</p>
+
+<figure>
+<svg viewBox="0 0 560 150" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="All-bank refresh freezes everything; same-bank refresh keeps others busy">
+  <style>
+    .busy{fill:#e7f6ef;stroke:#0f7b5a;stroke-width:1.2}
+    .ref{fill:#fdecea;stroke:#c0392b;stroke-width:1.2}
+    .k{font:11.5px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+    .t{font:10px 'Segoe UI',sans-serif;fill:#5b6472;text-anchor:middle}
+  </style>
+  <text class="k" x="20" y="28">DDR4 all-bank refresh: every bank frozen</text>
+  <g>
+    <rect class="ref" x="20" y="38" width="80" height="26"/><text class="t" x="60" y="55">REF</text>
+    <rect class="ref" x="104" y="38" width="80" height="26"/><text class="t" x="144" y="55">REF</text>
+    <rect class="ref" x="188" y="38" width="80" height="26"/><text class="t" x="228" y="55">REF</text>
+    <rect class="ref" x="272" y="38" width="80" height="26"/><text class="t" x="312" y="55">REF</text>
+  </g>
+  <text class="k" x="20" y="100">DDR5 same-bank refresh: one refreshes, others work</text>
+  <g>
+    <rect class="ref"  x="20" y="110" width="80" height="26"/><text class="t" x="60" y="127">REF</text>
+    <rect class="busy" x="104" y="110" width="80" height="26"/><text class="t" x="144" y="127">serving</text>
+    <rect class="busy" x="188" y="110" width="80" height="26"/><text class="t" x="228" y="127">serving</text>
+    <rect class="busy" x="272" y="110" width="80" height="26"/><text class="t" x="312" y="127">serving</text>
+  </g>
+</svg>
+<figcaption>Same-bank refresh overlaps refresh with useful work, cutting the performance hit
+that all-bank refresh causes.</figcaption>
+</figure>
+
+<h2>Refresh Management (RFM) and RowHammer</h2>
+<p><strong>RowHammer</strong> is a disturbance effect: hammering one row with many rapid
+activations can electrically flip bits in <em>neighboring</em> rows. DDR5's
+<strong>RFM</strong> is a new command, tied to how many activations have occurred, that gives
+the chip scheduled chances to shore up at-risk rows before they get disturbed.</p>
+
+<div class="box why">
+  <span class="label">Two goals, one area</span>
+  Same-bank refresh is about <strong>performance</strong> (refresh steals less time). RFM is
+  about <strong>reliability/security</strong> (defending against RowHammer). Both are
+  refinements of the refresh machinery you learned in Phase 1.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>How does same-bank refresh reduce the performance cost of refresh?</li>
+    <li>What is RowHammer, in one sentence?</li>
+    <li>What problem does RFM address, and how is it triggered?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="05-link-ecc-and-crc.html">← Link ECC &amp; CRC</a>
+  <a href="07-decision-feedback-equalization.html">Next → Decision Feedback Equalization</a>
+</div>
+
+</body>
+</html>

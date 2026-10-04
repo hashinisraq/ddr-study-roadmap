@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 0.10 - Single-ended vs Differential Signaling</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 0 · Lesson 10</p>
+<h1>Buses, Single-ended vs Differential Signaling</h1>
+<p class="lead">How a wire carries a bit at high speed - and why DDR's clock and strobes use
+<em>pairs</em> of wires instead of one.</p>
+
+<h2>Buses: shared vs point-to-point</h2>
+<p>A <strong>bus</strong> is a set of wires carrying signals between the controller and the
+DRAM. Some wires fan out to many chips (shared); the fastest links are
+<strong>point-to-point</strong> (one driver, one receiver), which is cleaner at high speed.
+This tension - load vs. speed - is why server modules add buffer chips (Phase 1).</p>
+
+<h2>Single-ended: one wire against a reference</h2>
+<p>A <strong>single-ended</strong> signal is one wire whose voltage is compared against a
+fixed <strong>reference (Vref)</strong>: above Vref = 1, below = 0. Simple and cheap - but
+any <strong>noise</strong> on the wire shifts its voltage and can flip the decision.</p>
+
+<h2>Differential: a pair that cancels noise</h2>
+<p>A <strong>differential</strong> signal uses <strong>two wires</strong> carrying opposite
+versions of the same bit. The receiver looks only at the <em>difference</em> between them.
+Noise tends to hit both wires equally, so it <strong>cancels out</strong> in the difference -
+giving far better immunity at high speed.</p>
+
+<figure>
+<svg viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Single-ended signal corrupted by noise versus differential cancelling noise">
+  <style>
+    .sig{fill:none;stroke:#2d5bd0;stroke-width:2.2}
+    .sig2{fill:none;stroke:#0f7b5a;stroke-width:2.2}
+    .ref{stroke:#9a5b00;stroke-width:1.4;stroke-dasharray:5 4}
+    .noise{fill:none;stroke:#c0392b;stroke-width:2;stroke-dasharray:4 3}
+    .k{font:12px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+    .t{font:11px 'Segoe UI',sans-serif;fill:#5b6472}
+  </style>
+  <!-- single-ended -->
+  <text class="k" x="10" y="30">Single-ended</text>
+  <line class="ref" x1="60" y1="75" x2="420" y2="75"/>
+  <text class="t" x="425" y="79">Vref</text>
+  <path class="sig" d="M60,100 L120,100 L130,50 L210,50 L220,100 L300,100 L310,50 L390,50"/>
+  <!-- noise pushing a low below->above ref ambiguous -->
+  <path class="noise" d="M120,100 q30,-35 60,-5" />
+  <text class="t" x="140" y="120" fill="#c0392b">noise can cross Vref → wrong bit</text>
+
+  <!-- differential -->
+  <text class="k" x="10" y="165">Differential</text>
+  <path class="sig" d="M60,200 L120,200 L130,165 L210,165 L220,200 L300,200 L310,165 L390,165"/>
+  <path class="sig2" d="M60,165 L120,165 L130,200 L210,200 L220,165 L300,165 L310,200 L390,200"/>
+  <text class="t" x="398" y="169" fill="#2d5bd0">A</text>
+  <text class="t" x="398" y="204" fill="#0f7b5a">A̅ (inverse)</text>
+  <text class="t" x="120" y="235">receiver reads A − A̅; shared noise cancels</text>
+</svg>
+<figcaption>Single-ended (top) decides against a fixed Vref, so noise near the threshold can
+flip a bit. Differential (bottom) reads the difference of two opposite wires; common noise
+cancels.</figcaption>
+</figure>
+
+<div class="box why">
+  <span class="label">Where you will see this in DDR</span>
+  DDR runs its <strong>clock (CK_t / CK_c)</strong> and its data strobes
+  <strong>(DQS_t / DQS_c)</strong> as differential pairs, because these must stay rock-solid
+  at gigahertz speeds. The data (DQ) lines are single-ended against a Vref - which is why DDR
+  needs <strong>Vref training</strong> (Phase 1) to place that threshold perfectly.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>How does a single-ended receiver decide 0 vs 1, and why is it noise-sensitive?</li>
+    <li>Why does a differential pair reject noise?</li>
+    <li>Which DDR signals are differential, and which are single-ended?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="09-setup-hold-and-metastability.html">← Setup, hold &amp; metastability</a>
+  <a href="11-signal-integrity-basics.html">Next → Signal integrity basics</a>
+</div>
+
+</body>
+</html>

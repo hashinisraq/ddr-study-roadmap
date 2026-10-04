@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 1.7 - Initialization &amp; Training</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 1 · Lesson 7</p>
+<h1>Initialization &amp; Training</h1>
+<p class="lead">You can't just power on and read. At DDR speeds the link must be
+<strong>tuned to the board</strong> before it works - this is the world of DDR firmware.</p>
+
+<h2>The power-up sequence</h2>
+<p>Voltages and the RESET pin must come up in a defined order, after which the controller
+configures the chip's mode registers. Only then can training begin.</p>
+
+<h2>ZQ calibration</h2>
+<p>The chip calibrates its <strong>output-driver strength and ODT resistance</strong> against
+a precise external <strong>240 Ω reference resistor (RZQ)</strong>, so its impedances are
+correct despite process/temperature variation.</p>
+
+<h2>Write leveling - the fly-by problem</h2>
+<p>DDR4 routes the clock in a <strong>fly-by</strong> line that passes each chip in turn, so
+the clock arrives at each chip at a slightly <em>different</em> time. <strong>Write
+leveling</strong> measures that skew and delays each chip's data strobe (DQS) to re-align it
+with the clock at that chip.</p>
+
+<figure>
+<svg viewBox="0 0 560 160" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Fly-by clock reaching chips at staggered times, corrected by write leveling">
+  <style>
+    .ctrl{fill:#eaf0fb;stroke:#2d5bd0;stroke-width:1.6}
+    .chip{fill:#e7f6ef;stroke:#0f7b5a;stroke-width:1.6}
+    .clkline{fill:none;stroke:#1a1f2b;stroke-width:2}
+    .t{font:11px 'Segoe UI',sans-serif;fill:#5b6472;text-anchor:middle}
+    .k{font:11.5px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+  </style>
+  <rect class="ctrl" x="20" y="55" width="80" height="40" rx="6"/>
+  <text class="k" x="30" y="79">Controller</text>
+  <!-- fly-by clock -->
+  <path class="clkline" d="M100,75 H520"/>
+  <g>
+    <rect class="chip" x="160" y="55" width="60" height="40" rx="6"/><text class="t" x="190" y="79">chip 0</text>
+    <rect class="chip" x="280" y="55" width="60" height="40" rx="6"/><text class="t" x="310" y="79">chip 1</text>
+    <rect class="chip" x="400" y="55" width="60" height="40" rx="6"/><text class="t" x="430" y="79">chip 2</text>
+  </g>
+  <text class="t" x="190" y="115">clock @ t0</text>
+  <text class="t" x="310" y="115">@ t0+Δ</text>
+  <text class="t" x="430" y="115">@ t0+2Δ</text>
+  <text class="k" x="150" y="140" fill="#0f7b5a">write leveling delays each chip's DQS to match its own clock arrival</text>
+</svg>
+<figcaption>The fly-by clock reaches each chip a little later. Write leveling tunes each
+chip's strobe timing so writes land correctly despite the stagger.</figcaption>
+</figure>
+
+<h2>Read training &amp; Vref training</h2>
+<p><strong>Read (DQS gate) training</strong> tunes exactly when to sample incoming read data;
+<strong>DQ Vref training</strong> places the voltage threshold (Phase 0, Lesson 6) in the
+center of the data "eye" so 0s and 1s are read correctly.</p>
+
+<div class="box why">
+  <span class="label">Why this is a whole career</span>
+  "Training" is a large part of real DDR work: the firmware/MRC track in Phase 5 lives here.
+  DDR5 adds even more training (CA training, duty-cycle adjust) because its margins are tighter.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>What does ZQ calibration tune, and against what reference?</li>
+    <li>Explain the fly-by problem and how write leveling fixes it.</li>
+    <li>What is DQ Vref training centering, and why does it matter?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="06-refresh-modes.html">← Refresh modes</a>
+  <a href="08-mode-registers.html">Next → Mode registers</a>
+</div>
+
+</body>
+</html>

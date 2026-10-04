@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 4.3 - DRAM Simulators</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 4 · Lesson 3 · Exercise</p>
+<h1>Run a DRAM Simulator</h1>
+<p class="lead">See behavior you can't observe on real hardware: scheduling, row hits vs
+conflicts, and how timing changes ripple into bandwidth and latency.</p>
+
+<h2>Free, open-source tools</h2>
+<table>
+  <tr><th>Tool</th><th>Good for</th><th>Where</th></tr>
+  <tr><td><strong>Ramulator 2.0</strong></td><td>Modern, flexible; supports DDR4 &amp; DDR5</td><td>github.com/CMU-SAFARI/ramulator2</td></tr>
+  <tr><td><strong>DRAMSim3</strong></td><td>Cycle-accurate, widely used</td><td>github.com/umd-memsys/DRAMsim3</td></tr>
+  <tr><td><strong>gem5</strong></td><td>Full-system: CPU + controller + DRAM together</td><td>gem5.org</td></tr>
+</table>
+
+<h2>What to actually do</h2>
+<ol>
+  <li>Run a <strong>streaming</strong> access pattern (sequential addresses); note the bandwidth.</li>
+  <li>Run a <strong>random</strong> access pattern; note how much bandwidth drops.</li>
+  <li>Explain the gap using row hits vs conflicts (Lesson 1): streaming reuses open rows
+  (hits); random keeps opening and closing rows (conflicts).</li>
+</ol>
+
+<div class="box why">
+  <span class="label">From concept to evidence</span>
+  The simulator turns the abstractions of Phases 1-2 into numbers you can measure. Seeing
+  bandwidth collapse under random access - and tracing it to row conflicts - is the moment the
+  whole model clicks.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Which tool would you pick to study the CPU + memory together, and why?</li>
+    <li>Predict the bandwidth ordering of streaming vs random before you run it.</li>
+    <li>Explain the measured gap in terms of row hits and conflicts.</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="02-redraw-the-state-machine.html">← Redraw the state machine</a>
+  <a href="04-timing-experiments.html">Next → Timing experiments</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 4.1 - Trace a Transaction</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 4 · Lesson 1 · Exercise</p>
+<h1>Trace a Full Transaction</h1>
+<p class="lead">Start from a CPU cache miss and walk the whole path to data return. Doing this
+once makes "row hit / miss / conflict" permanent knowledge.</p>
+
+<h2>The three cases</h2>
+<figure>
+<svg viewBox="0 0 560 230" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Decision tree for row hit, row miss, and row conflict">
+  <style>
+    .q{fill:#eaf0fb;stroke:#2d5bd0;stroke-width:1.5}
+    .hit{fill:#e7f6ef;stroke:#0f7b5a;stroke-width:1.5}
+    .miss{fill:#fdf2e0;stroke:#9a5b00;stroke-width:1.5}
+    .conf{fill:#fdecea;stroke:#c0392b;stroke-width:1.5}
+    .t{font:11px 'Segoe UI',sans-serif;fill:#1a1f2b;text-anchor:middle}
+    .n{font:10px 'Segoe UI',sans-serif;fill:#5b6472;text-anchor:middle}
+    .a{stroke:#9aa4b2;stroke-width:1.5;marker-end:url(#m)}
+  </style>
+  <defs><marker id="m" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#9aa4b2"/></marker></defs>
+  <rect class="q" x="200" y="15" width="160" height="40" rx="7"/>
+  <text class="t" x="280" y="33">Cache miss → controller</text><text class="n" x="280" y="48">is the right row already open?</text>
+
+  <!-- hit -->
+  <rect class="hit" x="30" y="120" width="150" height="50" rx="7"/>
+  <text class="t" x="105" y="140">Row HIT</text><text class="n" x="105" y="157">just RD (fastest)</text>
+  <line class="a" x1="230" y1="55" x2="120" y2="118"/>
+  <text class="n" x="150" y="95">open &amp; correct</text>
+
+  <!-- miss -->
+  <rect class="miss" x="205" y="120" width="150" height="50" rx="7"/>
+  <text class="t" x="280" y="140">Row MISS</text><text class="n" x="280" y="157">ACT → RD</text>
+  <line class="a" x1="280" y1="55" x2="280" y2="118"/>
+  <text class="n" x="320" y="95">no row open</text>
+
+  <!-- conflict -->
+  <rect class="conf" x="380" y="120" width="160" height="50" rx="7"/>
+  <text class="t" x="460" y="140">Row CONFLICT</text><text class="n" x="460" y="157">PRE → ACT → RD (slowest)</text>
+  <line class="a" x1="330" y1="55" x2="450" y2="118"/>
+  <text class="n" x="420" y="95">wrong row open</text>
+
+  <text class="n" x="280" y="200">then: data burst (BL8 / BL16) returns and fills the cache line</text>
+</svg>
+<figcaption>Whether the needed row is already open decides everything: a hit is just a RD; a
+conflict pays PRE + ACT + RD. Access <em>pattern</em> is what makes rows hit or conflict.</figcaption>
+</figure>
+
+<h2>Do the exercise</h2>
+<p>On paper, pick an address and walk it through for each of the three cases. Annotate every
+command with its governing timing:</p>
+<ul>
+  <li><strong>Hit:</strong> RD → (CL) → data.</li>
+  <li><strong>Miss:</strong> ACT → (tRCD) → RD → (CL) → data.</li>
+  <li><strong>Conflict:</strong> PRE → (tRP) → ACT → (tRCD) → RD → (CL) → data.</li>
+</ul>
+
+<div class="box why">
+  <span class="label">Why this is the core exercise</span>
+  Nearly all DRAM performance reasoning reduces to how often you get hits vs conflicts. Lock in
+  this trace and the simulator experiments (Lesson 4) will make immediate sense.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Write the command+timing sequence for each of hit, miss, and conflict.</li>
+    <li>Which is slowest, and why?</li>
+    <li>What property of the access pattern pushes you toward hits?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="../../phase-3-specs-and-datasheets/lessons/03-datasheets-vs-spec.html">← Phase 3 end</a>
+  <a href="02-redraw-the-state-machine.html">Next → Redraw the state machine</a>
+</div>
+
+</body>
+</html>

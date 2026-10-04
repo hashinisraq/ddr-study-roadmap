@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2.7 - Decision Feedback Equalization</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 2 · Lesson 7</p>
+<h1>Decision Feedback Equalization (DFE)</h1>
+<p class="lead">One of the circuits that makes DDR5's very high data rates actually readable -
+it reopens the "eye" that high speed tries to close.</p>
+
+<h2>The problem: bits smear into each other</h2>
+<p>From Phase 0, Lesson 7: at high speed a bit's energy lingers on the wire and
+<strong>smears into the next bit</strong> - called inter-symbol interference (ISI). The
+faster you go, the worse it gets, until 0s and 1s blur together and the receiver can't tell
+them apart. Engineers visualize this with an <strong>eye diagram</strong>: a clear, open "eye"
+means bits are easy to distinguish; a closed eye means errors.</p>
+
+<figure>
+<svg viewBox="0 0 560 170" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="A closed eye diagram reopened by DFE">
+  <style>
+    .trace{fill:none;stroke:#c0392b;stroke-width:1.4;opacity:.8}
+    .trace2{fill:none;stroke:#0f7b5a;stroke-width:1.4;opacity:.85}
+    .k{font:11.5px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+    .t{font:10px 'Segoe UI',sans-serif;fill:#5b6472;text-anchor:middle}
+    .eye{fill:#eafaf1;stroke:#0f7b5a;stroke-width:1;opacity:.6}
+  </style>
+  <!-- closed eye -->
+  <text class="k" x="40" y="24">Before DFE: eye nearly closed</text>
+  <path class="trace" d="M30,120 C70,60 90,60 130,120 C170,60 190,60 230,120"/>
+  <path class="trace" d="M30,60 C70,120 90,120 130,60 C170,120 190,120 230,60"/>
+  <path class="trace" d="M30,95 C70,85 90,85 130,95 C170,85 190,85 230,95"/>
+  <text class="t" x="130" y="150" fill="#c0392b">hard to tell 0 from 1</text>
+
+  <!-- open eye -->
+  <text class="k" x="330" y="24">After DFE: eye reopened</text>
+  <polygon class="eye" points="400,90 430,65 460,90 430,115"/>
+  <path class="trace2" d="M330,120 C370,65 390,65 430,118"/>
+  <path class="trace2" d="M330,60 C370,118 390,118 430,62"/>
+  <path class="trace2" d="M430,118 C470,65 490,65 530,120"/>
+  <path class="trace2" d="M430,62 C470,120 490,120 530,60"/>
+  <text class="t" x="430" y="150" fill="#0f7b5a">clear open eye → reliable</text>
+</svg>
+<figcaption>High speed closes the eye (left). DFE cancels the smear so the eye reopens
+(right), letting the receiver sample a clean 0 or 1.</figcaption>
+</figure>
+
+<h2>What DFE does</h2>
+<p><strong>DFE</strong> is equalization built into the chip's <em>receiver</em>. It uses the
+value it just decided for the <strong>previous</strong> bit to subtract that bit's lingering
+smear from the <strong>current</strong> one - cleaning up the signal and reopening the eye.
+It is a big reason DDR5 can run so much faster than DDR4.</p>
+
+<div class="box why">
+  <span class="label">Where this leads</span>
+  DFE is the "make the higher speed actually work" feature. If you take the
+  <strong>signal-integrity track</strong> in Phase 5, eye diagrams, equalization, and channel
+  modeling become your daily tools - this lesson is the on-ramp.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>What is inter-symbol interference, and what does an eye diagram show?</li>
+    <li>How does DFE use the previous bit to clean up the current one?</li>
+    <li>Why is DFE necessary specifically at DDR5 speeds?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="06-refresh-same-bank-and-rfm.html">← Same-bank refresh &amp; RFM</a>
+  <a href="08-duty-cycle-adjuster.html">Next → Duty Cycle Adjuster</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 1.9 - Electrical: POD12, ODT, DBI</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 1 · Lesson 9</p>
+<h1>Electrical Essentials: POD12, ODT, DBI</h1>
+<p class="lead">Just enough electrical reality to understand how DDR4 drives its signals
+cleanly and cheaply.</p>
+
+<h2>POD12 signaling at 1.2 V</h2>
+<p>DDR4 uses <strong>Pseudo-Open-Drain (POD12)</strong> I/O at <strong>VDDQ = 1.2 V</strong>
+(DDR3 was 1.5 V). Lower voltage means lower power. POD terminates to the supply rail, which
+pairs naturally with the on-die termination below.</p>
+
+<h2>On-Die Termination (ODT)</h2>
+<p>From Phase 0, Lesson 7: high-speed traces echo, and a matched resistor kills the echo. DDR4
+puts that resistor <strong>inside the chip</strong> - <strong>ODT</strong> - and switches it on
+only for the chip currently being addressed, so reflections are absorbed exactly where needed.
+<strong>Dynamic ODT</strong> can change the termination value on the fly during writes.</p>
+
+<h2>Data Bus Inversion (DBI)</h2>
+<p>With POD signaling, driving many <strong>0s</strong> costs more power and adds noise. If a
+data byte would put too many 0s on the bus, the chip <strong>inverts the whole byte</strong>
+and flags it on the <strong>DBI pin</strong>. The receiver un-inverts it. Fewer 0s on the
+wires → less power and cleaner signals.</p>
+
+<table>
+  <tr><th>Feature</th><th>Problem it addresses</th></tr>
+  <tr><td>POD12 @ 1.2 V</td><td>Power - lower swing than DDR3's 1.5 V.</td></tr>
+  <tr><td>ODT (incl. dynamic)</td><td>Reflections - absorb echoes at the active chip.</td></tr>
+  <tr><td>DBI</td><td>Power/noise - limit the number of 0s driven on the bus.</td></tr>
+</table>
+
+<div class="box why">
+  <span class="label">Tie-back</span>
+  These three are the practical answers to Phase 0's signal-integrity chain: lower voltage for
+  power, termination for reflections, and DBI to tame the POD bus. You set ODT and DBI via the
+  mode registers (Lesson 8).
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>What voltage does DDR4 signal at, and why is that better than DDR3?</li>
+    <li>What does ODT do, and when is it switched on?</li>
+    <li>How does DBI save power, and how does the receiver know a byte was inverted?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="08-mode-registers.html">← Mode registers</a>
+  <a href="10-bank-groups.html">Next → Bank groups</a>
+</div>
+
+</body>
+</html>

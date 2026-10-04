@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 5.1 - Track: Controller / RTL Design</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 5 · Track 1</p>
+<h1>Track: Memory Controller / RTL Design</h1>
+<p class="lead">Design the digital logic that <em>drives</em> the DRAM - command scheduling,
+address mapping, refresh management, timing enforcement.</p>
+
+<h2>What you actually do</h2>
+<p>You build the hardware that decides, every cycle, which command to issue to which bank while
+honoring every timing. The core skill is <strong>scheduling</strong>: choosing the next request
+to maximize row hits and bank parallelism (a classic policy is <strong>FR-FCFS</strong> -
+first-ready, first-come-first-served, which prefers a ready row-hit). You also choose
+<strong>open-page vs closed-page</strong> policy and the address-mapping that spreads accesses
+across bank groups.</p>
+
+<h2>What to learn</h2>
+<ul>
+  <li><strong>Verilog / SystemVerilog</strong> and digital design practice.</li>
+  <li>Queueing and arbitration; request scheduling algorithms.</li>
+  <li>Controller/PHY <strong>IP documentation</strong> (Synopsys, Cadence).</li>
+  <li>Deepen Phase 1 timings and Phase 4 scheduling ideas - now realized in hardware.</li>
+</ul>
+
+<div class="box why">
+  <span class="label">Build to learn</span>
+  A concrete project: implement a simple scheduler that prefers row hits, and measure its
+  bandwidth against a naive in-order one in a simulator (Phase 4). The gap <em>is</em> the value
+  of good scheduling.
+</div>
+
+<div class="nav">
+  <a href="../../phase-4-hands-on/lessons/05-controller-datasheet.html">← Phase 4 end</a>
+  <a href="02-track-validation.html">Next → Track: Validation</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 0.1 - What Is Memory (RAM)?</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 0 · Lesson 1</p>
+<h1>What Is Memory (RAM)?</h1>
+<p class="lead">Start here with zero assumptions. Before any circuits or timings, let's be
+clear on what "memory" is and why a computer needs the fast kind.</p>
+
+<h2>Memory vs storage: your desk vs your cupboard</h2>
+<p>A computer keeps information in two very different places:</p>
+<ul>
+  <li><strong>Storage</strong> (an SSD or hard drive) is like a big <strong>cupboard</strong>:
+  it holds a lot, and it keeps everything even when the power is off - but it is slow to reach
+  into.</li>
+  <li><strong>Memory</strong> (RAM) is like your <strong>desk</strong>: small and temporary,
+  but right in front of you and very fast to use. The computer puts whatever it is working on
+  <em>right now</em> onto this "desk."</li>
+</ul>
+<p><strong>RAM</strong> stands for Random-Access Memory. It is the fast working space the
+computer uses while it runs programs.</p>
+
+<figure>
+<svg viewBox="0 0 540 180" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="CPU talks to fast RAM, which is backed by slow storage">
+  <style>
+    .cpu{fill:#eaf0fb;stroke:#2d5bd0;stroke-width:1.6}
+    .ram{fill:#e7f6ef;stroke:#0f7b5a;stroke-width:1.6}
+    .disk{fill:#eef1f6;stroke:#9aa4b2;stroke-width:1.6}
+    .k{font:13px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600;text-anchor:middle}
+    .t{font:11px 'Segoe UI',sans-serif;fill:#5b6472;text-anchor:middle}
+    .a{stroke:#9aa4b2;stroke-width:2;marker-end:url(#m);fill:none}
+  </style>
+  <defs><marker id="m" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#9aa4b2"/></marker></defs>
+  <rect class="cpu" x="30" y="60" width="110" height="60" rx="8"/>
+  <text class="k" x="85" y="88">CPU</text><text class="t" x="85" y="106">does the work</text>
+
+  <rect class="ram" x="215" y="60" width="120" height="60" rx="8"/>
+  <text class="k" x="275" y="85">RAM</text><text class="t" x="275" y="101">fast · small ·</text><text class="t" x="275" y="114">forgets at power-off</text>
+
+  <rect class="disk" x="410" y="60" width="120" height="60" rx="8"/>
+  <text class="k" x="470" y="85">Storage</text><text class="t" x="470" y="101">slow · huge ·</text><text class="t" x="470" y="114">keeps everything</text>
+
+  <path class="a" d="M142,80 H212"/><path class="a" d="M212,100 H144"/>
+  <text class="t" x="178" y="52">very fast</text>
+  <path class="a" d="M337,80 H408"/><path class="a" d="M408,100 H339"/>
+  <text class="t" x="372" y="52">slow</text>
+</svg>
+<figcaption>The CPU works out of RAM because it is fast. RAM is refilled from slow storage as
+needed. The faster RAM is, the less the CPU waits.</figcaption>
+</figure>
+
+<h2>Two key facts about RAM</h2>
+<ul>
+  <li><strong>It is temporary (volatile).</strong> When the power goes off, RAM forgets
+  everything. That is why unsaved work is lost in a power cut - it was only on the "desk."</li>
+  <li><strong>The CPU uses it constantly.</strong> Every program, every open browser tab, lives
+  in RAM while running. So RAM's <strong>speed</strong> directly affects how fast your computer
+  feels.</li>
+</ul>
+
+<div class="box why">
+  <span class="label">Where DDR fits in</span>
+  The RAM in modern computers is a specific kind called <strong>DDR SDRAM</strong>. "DDR4" and
+  "DDR5" are just the 4th and 5th generations of it. This whole course is about understanding
+  that memory - from this big picture all the way down to how a single bit is stored.
+</div>
+
+<div class="box analogy">
+  <span class="label">One-line analogy</span>
+  Storage is the <strong>filing cabinet</strong> (big, slow, permanent). RAM is the
+  <strong>desk</strong> (small, fast, cleared each day). The CPU is <strong>you</strong>,
+  working at the desk.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>What is the difference between RAM and storage?</li>
+    <li>What happens to RAM's contents when the power is turned off?</li>
+    <li>Why does RAM's speed matter for how fast a computer feels?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="../../index.html">↑ All lessons</a>
+  <a href="02-the-memory-stick-and-chips.html">Next → The memory stick &amp; its chips</a>
+</div>
+
+</body>
+</html>

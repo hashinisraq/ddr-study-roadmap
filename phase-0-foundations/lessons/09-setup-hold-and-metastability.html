@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 0.9 - Setup, Hold &amp; Metastability</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 0 · Lesson 9</p>
+<h1>Digital Timing: Setup, Hold &amp; Metastability</h1>
+<p class="lead">The rule that underlies <em>every</em> DDR timing number: a signal must be
+stable around the clock edge, or you get garbage.</p>
+
+<h2>Capturing a signal on a clock edge</h2>
+<p>Synchronous logic samples a signal at the instant of a clock edge. For that sample to be
+reliable, the data must already be <strong>steady</strong> for a short time before the edge
+and stay steady for a short time after it:</p>
+<ul>
+  <li><strong>Setup time (t<sub>su</sub>)</strong> - how long the data must be stable
+  <em>before</em> the clock edge.</li>
+  <li><strong>Hold time (t<sub>h</sub>)</strong> - how long it must stay stable
+  <em>after</em> the edge.</li>
+  <li><strong>Clock-to-Q</strong> - after the edge, the small delay before the captured
+  value appears at the output.</li>
+</ul>
+
+<figure>
+<svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Setup and hold window around a clock edge">
+  <style>
+    .clk{fill:none;stroke:#1a1f2b;stroke-width:2}
+    .data{fill:none;stroke:#2d5bd0;stroke-width:2.4}
+    .win{fill:#fdf2e0;stroke:#9a5b00;stroke-width:1.2}
+    .edge{stroke:#c0392b;stroke-width:1.8;stroke-dasharray:5 4}
+    .t{font:11.5px 'Segoe UI',sans-serif;fill:#5b6472}
+    .k{font:12px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+  </style>
+  <!-- clock -->
+  <text class="k" x="10" y="46">Clock</text>
+  <path class="clk" d="M70,55 h110 v-35 h60 v35 h110 v-35 h60 v35 h60"/>
+  <!-- the sampling edge (rising at x=180) -->
+  <line class="edge" x1="180" y1="10" x2="180" y2="195"/>
+  <text class="k" x="150" y="22" fill="#c0392b">edge</text>
+  <!-- setup/hold window -->
+  <rect class="win" x="150" y="95" width="60" height="70"/>
+  <text class="t" x="120" y="185">t_su</text>
+  <line class="t" x1="150" y1="172" x2="180" y2="172" stroke="#9a5b00"/>
+  <text class="t" x="188" y="185">t_h</text>
+  <line x1="180" y1="172" x2="210" y2="172" stroke="#9a5b00"/>
+  <!-- data: must be stable across window -->
+  <text class="k" x="10" y="130">Data</text>
+  <path class="data" d="M70,145 L120,145 L140,110 L250,110 L270,145 L360,145 L380,110 L470,110"/>
+  <text class="t" x="300" y="100">must stay stable across the shaded window</text>
+</svg>
+<figcaption>The data must be stable through the setup window (before) and hold window
+(after) the clock edge. Change it inside that window and the capture is unreliable.</figcaption>
+</figure>
+
+<h2>Break the rule → metastability</h2>
+<p>If the data changes right as the clock ticks (setup or hold violated), the capturing
+element can go <strong>metastable</strong> - hovering between 0 and 1 for a moment before
+settling randomly. Downstream logic may read it as either value: a real, intermittent bug.</p>
+
+<div class="box why">
+  <span class="label">Why this is the root of all DDR timings</span>
+  Numbers like <code>tRCD</code>, <code>tRP</code>, and <code>CL</code> in Phase 1 all exist
+  to guarantee that whatever you are about to sample is <strong>stable in time</strong> when
+  you grab it. Read every "wait N nanoseconds" as "wait until the signal is safely within
+  its setup/hold window." At DDR speeds the windows are tiny - which is exactly why DDR needs
+  careful training and equalization (later lessons).
+</div>
+
+<div class="box analogy">
+  <span class="label">Analogy</span>
+  Taking a sharp photo of a moving object: you need the subject to hold still just before and
+  just after the shutter clicks. Snap while it is moving (violating setup/hold) and you get a
+  blur - a value that is neither here nor there (metastable).
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Define setup time and hold time in one sentence each.</li>
+    <li>What is metastability, and what causes it?</li>
+    <li>In your own words, what are DDR timing parameters ultimately protecting?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="08-sdram-clocking-and-ddr.html">← SDRAM clocking &amp; DDR</a>
+  <a href="10-single-ended-vs-differential.html">Next → Single-ended vs differential</a>
+</div>
+
+</body>
+</html>

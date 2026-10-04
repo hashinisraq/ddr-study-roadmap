@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2.10 - Expanded Mode Registers</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 2 · Lesson 10</p>
+<h1>A Much Bigger Mode-Register Space</h1>
+<p class="lead">Same idea as DDR4's settings panel - just vastly expanded to configure all the
+new DDR5 features.</p>
+
+<h2>From a handful to many</h2>
+<p>DDR4 had a small set of mode registers (MR0-MR7, Phase 1 Lesson 8). DDR5 has
+<strong>far more</strong> - dozens of registers - because there is so much more to configure:
+on-die ECC, DFE, DCA, RFM, the two sub-channels, new training modes, PMIC-related settings,
+and more.</p>
+
+<h2>New ways to access them</h2>
+<p>DDR5 uses dedicated <strong>Mode Register Write / Read (MRW / MRR)</strong> operations and
+<strong>Multi-Purpose Commands (MPC)</strong> to reach this larger register space, rather than
+DDR4's simpler MRS scheme. The addressing is new, but the concept is unchanged: a register
+holds a setting; you write it to configure the chip.</p>
+
+<div class="box why">
+  <span class="label">How to approach it</span>
+  As in DDR4, you don't memorize the register map - you learn <strong>that</strong> the
+  configuration lives in mode registers and <strong>how to look up</strong> a given feature's
+  register and bits in the spec. The growth in register count is just a reflection of how many
+  more features DDR5 added.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Why does DDR5 need far more mode registers than DDR4?</li>
+    <li>What operations does DDR5 use to read/write them?</li>
+    <li>What's the right way to "learn" the register space?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="09-power-pmic-and-voltage.html">← Power: PMIC &amp; voltage</a>
+  <a href="11-ca-changes-and-training.html">Next → CA changes &amp; training</a>
+</div>
+
+</body>
+</html>

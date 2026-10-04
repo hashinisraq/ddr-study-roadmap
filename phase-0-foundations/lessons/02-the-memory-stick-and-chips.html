@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 0.2 - The Memory Stick (DIMM) and Its Chips</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 0 · Lesson 2</p>
+<h1>The Memory Stick (DIMM) and Its Chips</h1>
+<p class="lead">Let's look at the actual thing you hold in your hand and name its parts, in
+plain language.</p>
+
+<h2>The stick is called a DIMM</h2>
+<p>The memory "stick" you plug into a computer's motherboard is called a <strong>DIMM</strong>
+- short for <em>Dual In-line Memory Module</em>. "Module" just means a small board with parts
+on it. You don't need the long name; <strong>DIMM = one stick of RAM</strong>.</p>
+<p>Laptops and small PCs use a shorter version called a <strong>SO-DIMM</strong> - same idea,
+smaller board.</p>
+
+<figure>
+<svg viewBox="0 0 540 180" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="A memory stick (DIMM) with DRAM chips and a gold contact edge">
+  <style>
+    .board{fill:#edf3ec;stroke:#0f7b5a;stroke-width:1.8}
+    .chip{fill:#2b2f3a;stroke:#1a1f2b;stroke-width:1.2}
+    .chiptxt{font:9px 'Segoe UI',sans-serif;fill:#e7ecf3;text-anchor:middle}
+    .gold{fill:#e8c766}
+    .lbl{font:11px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+    .t{font:10.5px 'Segoe UI',sans-serif;fill:#5b6472}
+    .ld{stroke:#9aa4b2;stroke-width:1.2;stroke-dasharray:3 3}
+  </style>
+  <!-- board -->
+  <rect class="board" x="30" y="55" width="480" height="70" rx="6"/>
+  <!-- chips -->
+  <g>
+    <rect class="chip" x="55" y="70" width="48" height="34" rx="3"/><text class="chiptxt" x="79" y="91">chip</text>
+    <rect class="chip" x="115" y="70" width="48" height="34" rx="3"/><text class="chiptxt" x="139" y="91">chip</text>
+    <rect class="chip" x="175" y="70" width="48" height="34" rx="3"/><text class="chiptxt" x="199" y="91">chip</text>
+    <rect class="chip" x="235" y="70" width="48" height="34" rx="3"/><text class="chiptxt" x="259" y="91">chip</text>
+    <rect class="chip" x="295" y="70" width="48" height="34" rx="3"/><text class="chiptxt" x="319" y="91">chip</text>
+    <rect class="chip" x="355" y="70" width="48" height="34" rx="3"/><text class="chiptxt" x="379" y="91">chip</text>
+    <rect class="chip" x="415" y="70" width="48" height="34" rx="3"/><text class="chiptxt" x="439" y="91">chip</text>
+  </g>
+  <!-- gold contacts -->
+  <g>
+    <rect class="gold" x="40" y="126" width="460" height="10"/>
+  </g>
+  <!-- notch -->
+  <rect fill="#ffffff" x="300" y="126" width="12" height="10"/>
+  <!-- labels -->
+  <text class="lbl" x="150" y="40">DRAM chips - the actual memory</text>
+  <line class="ld" x1="139" y1="68" x2="150" y2="44"/>
+  <text class="lbl" x="300" y="160">gold contacts - plug into the motherboard</text>
+  <line class="ld" x1="270" y1="136" x2="330" y2="150"/>
+</svg>
+<figcaption>A DIMM is a small board carrying several DRAM chips, with a row of gold contacts
+along the bottom edge that slot into the motherboard. The little notch makes sure it goes in
+the right way round.</figcaption>
+</figure>
+
+<h2>The black rectangles are the memory chips</h2>
+<p>The small black rectangles soldered onto the board are the <strong>DRAM chips</strong> - the
+parts that actually store your data. A typical stick has <strong>eight</strong> of them (sometimes
+sixteen, or nine on special "ECC" sticks you'll meet later).</p>
+<p>The gold strip along the bottom is a row of <strong>contacts (pins)</strong>. When you push
+the stick into its slot, these connect the chips to the rest of the computer.</p>
+
+<div class="box why">
+  <span class="label">The plan from here</span>
+  We will keep <strong>zooming in</strong>: this lesson is the whole stick; the next looks at how
+  the chips team up; then we go inside one chip (banks); and finally inside a bank to a single
+  storage cell. Big picture first, details second.
+</div>
+
+<div class="box analogy">
+  <span class="label">Analogy</span>
+  The DIMM is a <strong>egg carton</strong>, and the chips are the <strong>eggs</strong>. The
+  carton's job is to hold the eggs in a neat row and connect them to the kitchen (the
+  motherboard).
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>What is a DIMM, in plain words?</li>
+    <li>What are the black rectangles on the stick, and what do they do?</li>
+    <li>What is the gold strip along the bottom edge for?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="01-what-is-memory.html">← What is memory (RAM)?</a>
+  <a href="03-rank-and-chip-width.html">Next → How chips team up: rank &amp; width</a>
+</div>
+
+</body>
+</html>

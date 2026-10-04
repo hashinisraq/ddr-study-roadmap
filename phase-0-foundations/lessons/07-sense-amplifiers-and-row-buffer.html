@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 0.7 - Sense Amplifiers &amp; the Row Buffer</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 0 · Lesson 7</p>
+<h1>Sense Amplifiers &amp; the Row Buffer</h1>
+<p class="lead">How the chip turns a cell's near-invisible charge into a solid 0 or 1 - and
+why a whole "open row" sits ready for fast access.</p>
+
+<h2>The signal is tiny - enter the sense amplifier</h2>
+<p>When a row opens, each cell dumps its small charge onto a long bit line that already
+holds its own charge. The result is a <strong>minuscule voltage nudge</strong>: a stored 1
+pushes the bit line up a hair, a 0 pulls it down a hair. Far too weak to use directly.</p>
+<p>At the end of every bit line sits a <strong>sense amplifier</strong> - a circuit that
+detects that tiny nudge and <strong>slams it to a full, clean 0 or 1</strong>. In doing so
+it also writes the value back into the cell (the restore step from Lesson 2).</p>
+
+<h2>All the sense amps together = the row buffer</h2>
+<p>There is one sense amplifier per bit line, so when you activate a row, <strong>the entire
+row</strong> is sensed and latched at once. That latched row is the <strong>row buffer</strong>
+(also called the "open row" or "open page").</p>
+
+<figure>
+<svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="A row of cells sensed into sense amplifiers forming the row buffer">
+  <style>
+    .bl{stroke:#9aa4b2;stroke-width:1.6}
+    .wl{stroke:#c0392b;stroke-width:2.4}
+    .cell{fill:#2d5bd0}
+    .sa{fill:#eaf0fb;stroke:#2d5bd0;stroke-width:1.6}
+    .t{font:11.5px 'Segoe UI',sans-serif;fill:#5b6472}
+    .k{font:12px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+  </style>
+  <!-- bit lines -->
+  <g>
+    <line class="bl" x1="100" y1="40" x2="100" y2="170"/>
+    <line class="bl" x1="180" y1="40" x2="180" y2="170"/>
+    <line class="bl" x1="260" y1="40" x2="260" y2="170"/>
+    <line class="bl" x1="340" y1="40" x2="340" y2="170"/>
+    <line class="bl" x1="420" y1="40" x2="420" y2="170"/>
+  </g>
+  <!-- active word line -->
+  <line class="wl" x1="70" y1="80" x2="450" y2="80"/>
+  <text class="k" x="458" y="84" fill="#c0392b">active row (WL high)</text>
+  <!-- other (inactive) word lines -->
+  <line class="bl" x1="70" y1="120" x2="450" y2="120"/>
+  <line class="bl" x1="70" y1="155" x2="450" y2="155"/>
+  <!-- cells on active row -->
+  <circle class="cell" cx="100" cy="80" r="5"/><circle class="cell" cx="180" cy="80" r="5"/>
+  <circle class="cell" cx="260" cy="80" r="5"/><circle class="cell" cx="340" cy="80" r="5"/>
+  <circle class="cell" cx="420" cy="80" r="5"/>
+  <!-- cells elsewhere (faint) -->
+  <g fill="#c3cbd6">
+    <circle cx="100" cy="120" r="4"/><circle cx="180" cy="120" r="4"/><circle cx="260" cy="120" r="4"/>
+    <circle cx="340" cy="120" r="4"/><circle cx="420" cy="120" r="4"/>
+    <circle cx="100" cy="155" r="4"/><circle cx="180" cy="155" r="4"/><circle cx="260" cy="155" r="4"/>
+    <circle cx="340" cy="155" r="4"/><circle cx="420" cy="155" r="4"/>
+  </g>
+  <!-- sense amps -->
+  <g>
+    <rect class="sa" x="85" y="190" width="30" height="34" rx="5"/>
+    <rect class="sa" x="165" y="190" width="30" height="34" rx="5"/>
+    <rect class="sa" x="245" y="190" width="30" height="34" rx="5"/>
+    <rect class="sa" x="325" y="190" width="30" height="34" rx="5"/>
+    <rect class="sa" x="405" y="190" width="30" height="34" rx="5"/>
+    <text class="t" x="94" y="212">SA</text><text class="t" x="174" y="212">SA</text>
+    <text class="t" x="254" y="212">SA</text><text class="t" x="334" y="212">SA</text>
+    <text class="t" x="414" y="212">SA</text>
+  </g>
+  <line class="bl" x1="100" y1="170" x2="100" y2="190"/><line class="bl" x1="180" y1="170" x2="180" y2="190"/>
+  <line class="bl" x1="260" y1="170" x2="260" y2="190"/><line class="bl" x1="340" y1="170" x2="340" y2="190"/>
+  <line class="bl" x1="420" y1="170" x2="420" y2="190"/>
+  <text class="k" x="150" y="245">sense amplifiers latch the whole row = the ROW BUFFER</text>
+</svg>
+<figcaption>One ACTIVATE: the whole active row is sensed into the sense amplifiers. That
+latched row - the row buffer - now holds the data, ready for fast column access.</figcaption>
+</figure>
+
+<div class="box why">
+  <span class="label">Why the row buffer makes DRAM fast</span>
+  Once a row is in the buffer, reading any column from it is quick - the data is already
+  sensed and waiting. Reading many columns from one open row (a "row hit") is the fastest
+  thing DRAM does. Having to open a different row first (a "row miss/conflict") is the slow
+  path. <strong>Keeping useful rows open is the core of DRAM performance.</strong>
+</div>
+
+<div class="box analogy">
+  <span class="label">Analogy</span>
+  Opening a row is like opening a book to one <strong>page</strong> and laying it flat (the
+  row buffer). Reading columns is glancing at words on that open page - instant. Switching
+  pages means closing the book and opening another - slow.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>What does a sense amplifier do with the tiny bit-line signal?</li>
+    <li>What exactly is the "row buffer," and how is it created?</li>
+    <li>Why is a "row hit" faster than a "row miss"?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="06-refresh-and-destructive-reads.html">← Refresh &amp; destructive reads</a>
+  <a href="08-sdram-clocking-and-ddr.html">Next → SDRAM clocking &amp; DDR</a>
+</div>
+
+</body>
+</html>

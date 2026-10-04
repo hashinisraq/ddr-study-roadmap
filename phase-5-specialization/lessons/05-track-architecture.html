@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 5.5 - Track: Architecture / Performance</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 5 · Track 5</p>
+<h1>Track: System Architecture / Performance</h1>
+<p class="lead">Decide how memory fits into a whole system and how to extract the most from it -
+and explore where DRAM is heading next.</p>
+
+<h2>What you actually do</h2>
+<p>You reason about <strong>bandwidth, latency, and access patterns</strong> at system scale,
+and evaluate new ideas: processing-in-memory (PIM), smarter refresh, and reliability/security
+like <strong>RowHammer</strong> defense. You model systems and read the research frontier.</p>
+
+<h2>What to learn</h2>
+<ul>
+  <li>System-level simulation (<strong>gem5</strong>) and workload analysis.</li>
+  <li><em>Memory Systems</em> (Jacob, Ng &amp; Wang) in depth.</li>
+  <li>The <strong>SAFARI group</strong> (Onur Mutlu, ETH) publications - RowHammer, refresh
+  optimization, PIM - the frontier of DRAM research.</li>
+  <li>Conference papers: ISCA, MICRO, HPCA, DATE memory sessions.</li>
+</ul>
+
+<div class="box why">
+  <span class="label">Build to learn</span>
+  A concrete project: take a real workload, run it in gem5 with two memory configurations, and
+  explain the performance difference in terms of row locality and bank parallelism - then read
+  one SAFARI paper that proposes improving exactly that.
+</div>
+
+<div class="box check">
+  <span class="label">Phase 5 milestone</span>
+  Pick one track (this or another). Write a half-page plan: the sub-skills it needs, the spec
+  sections to master, and one concrete project you'll build to prove you can do the work. Then
+  start it - that project is where "hero" actually happens.
+</div>
+
+<div class="nav">
+  <a href="04-track-firmware.html">← Track: Firmware / training</a>
+  <a href="../../index.html">↑ All lessons</a>
+</div>
+
+</body>
+</html>

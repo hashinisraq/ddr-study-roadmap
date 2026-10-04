@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 0.3 - How Chips Team Up: Rank and Chip Width</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 0 · Lesson 3</p>
+<h1>How Chips Team Up: Rank and Chip Width</h1>
+<p class="lead">Why a stick has several chips instead of one, and what "rank" means - explained
+without any electronics.</p>
+
+<h2>The CPU wants a lot of bits at once</h2>
+<p>Computers move data in chunks of <strong>bits</strong> (a bit is a single 0 or 1). When the
+CPU asks memory for data, it wants <strong>64 bits at a time</strong> on one connection (called a
+<em>channel</em>). One memory chip can't comfortably hand over 64 bits by itself - so several
+chips <strong>work together</strong>, each contributing a share.</p>
+
+<h2>Chip "width": how many bits each chip gives</h2>
+<p>Each chip delivers a small number of bits at once - its <strong>width</strong>:</p>
+<ul>
+  <li>A <strong>"x8"</strong> chip gives <strong>8 bits</strong> at a time (the most common).</li>
+  <li>A <strong>"x4"</strong> chip gives 4 bits (used on big server sticks).</li>
+  <li>A <strong>"x16"</strong> chip gives 16 bits (common in laptops).</li>
+</ul>
+<p>To reach 64 bits with x8 chips, you need <strong>eight of them</strong> side by side
+(8 chips x 8 bits = 64 bits). That is why a typical stick has eight chips.</p>
+
+<figure>
+<svg viewBox="0 0 540 170" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Eight x8 chips each giving 8 bits combine into one 64-bit rank">
+  <style>
+    .chip{fill:#2b2f3a;stroke:#1a1f2b;stroke-width:1}
+    .ct{font:9px 'Segoe UI',sans-serif;fill:#e7ecf3;text-anchor:middle}
+    .bit{font:9px 'Segoe UI',sans-serif;fill:#5b6472;text-anchor:middle}
+    .sum{fill:#e7f6ef;stroke:#0f7b5a;stroke-width:1.6}
+    .k{font:12px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600;text-anchor:middle}
+    .a{stroke:#9aa4b2;stroke-width:1.3;marker-end:url(#m);fill:none}
+  </style>
+  <defs><marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa4b2"/></marker></defs>
+  <g>
+    <!-- 8 chips -->
+    <g>
+      <rect class="chip" x="20"  y="30" width="48" height="30" rx="3"/><text class="ct" x="44"  y="49">x8</text><text class="bit" x="44"  y="74">8b</text>
+      <rect class="chip" x="80"  y="30" width="48" height="30" rx="3"/><text class="ct" x="104" y="49">x8</text><text class="bit" x="104" y="74">8b</text>
+      <rect class="chip" x="140" y="30" width="48" height="30" rx="3"/><text class="ct" x="164" y="49">x8</text><text class="bit" x="164" y="74">8b</text>
+      <rect class="chip" x="200" y="30" width="48" height="30" rx="3"/><text class="ct" x="224" y="49">x8</text><text class="bit" x="224" y="74">8b</text>
+      <rect class="chip" x="260" y="30" width="48" height="30" rx="3"/><text class="ct" x="284" y="49">x8</text><text class="bit" x="284" y="74">8b</text>
+      <rect class="chip" x="320" y="30" width="48" height="30" rx="3"/><text class="ct" x="344" y="49">x8</text><text class="bit" x="344" y="74">8b</text>
+      <rect class="chip" x="380" y="30" width="48" height="30" rx="3"/><text class="ct" x="404" y="49">x8</text><text class="bit" x="404" y="74">8b</text>
+      <rect class="chip" x="440" y="30" width="48" height="30" rx="3"/><text class="ct" x="464" y="49">x8</text><text class="bit" x="464" y="74">8b</text>
+    </g>
+  </g>
+  <!-- arrows down to sum bar -->
+  <path class="a" d="M254,85 V108"/>
+  <rect class="sum" x="20" y="112" width="468" height="34" rx="6"/>
+  <text class="k" x="254" y="134">one 64-bit rank (8 chips working as a team)</text>
+</svg>
+<figcaption>Eight x8 chips, each giving 8 bits, line up to deliver the 64 bits the CPU asked for.
+Acting together like this, they form one <strong>rank</strong>.</figcaption>
+</figure>
+
+<h2>That team of chips is a "rank"</h2>
+<p>A set of chips that work together to deliver the full 64 bits is called a <strong>rank</strong>.
+Think of a rank as <strong>one complete team</strong>. A stick can hold:</p>
+<ul>
+  <li><strong>One rank</strong> (single-rank) - one team of chips, or</li>
+  <li><strong>Two ranks</strong> (dual-rank) - two teams on the same stick, taking turns.</li>
+</ul>
+
+<div class="box why">
+  <span class="label">Why remember "rank"</span>
+  "Rank" is a word you'll see constantly in DDR. All it means is: <em>a group of chips that
+  together make up one full-width (64-bit) unit the memory controller talks to.</em> Nothing more
+  mysterious than that.
+</div>
+
+<div class="box analogy">
+  <span class="label">Analogy</span>
+  Eight people each carrying one box = a rank delivering a full load. A dual-rank stick is like
+  having two such teams that take turns at the loading dock.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Why does a stick use several chips instead of one?</li>
+    <li>If each chip is "x8," how many are needed to make 64 bits?</li>
+    <li>In one sentence, what is a "rank"?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="02-the-memory-stick-and-chips.html">← The memory stick &amp; its chips</a>
+  <a href="04-banks-and-bank-groups.html">Next → Inside a chip: banks &amp; bank groups</a>
+</div>
+
+</body>
+</html>

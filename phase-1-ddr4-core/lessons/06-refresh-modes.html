@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 1.6 - DDR4 Refresh Modes</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 1 · Lesson 6</p>
+<h1>Refresh Modes</h1>
+<p class="lead">Phase 0 said cells must be refreshed every ~64 ms. Here is <em>how</em> DDR4
+actually does it, and the trade-offs between the modes.</p>
+
+<h2>Auto-refresh (normal operation)</h2>
+<p>During normal use the controller issues <strong>REFRESH (REF)</strong> commands at the
+<code>tREFI</code> pace (about one every 7.8 µs). The chip tracks internally which rows to
+refresh next - the controller just has to send REF often enough. Each REF occupies the chip
+for <code>tRFC</code>.</p>
+
+<h2>Self-refresh (low-power sleep)</h2>
+<p>When the system idles, the chip enters <strong>self-refresh</strong>: it refreshes itself
+using its own internal timer, so the controller - and even the external clock - can shut
+down. This is what lets a sleeping laptop keep RAM contents at minimal power.</p>
+
+<h2>Temperature-controlled refresh</h2>
+<p>Hot DRAM leaks faster. With temperature-controlled refresh the chip adjusts its refresh
+rate to temperature - refreshing more often when hot, less when cool, saving power.</p>
+
+<h2>Fine Granularity Refresh (1× / 2× / 4×)</h2>
+<p>Instead of one big refresh, DDR4 can split it into smaller, more frequent chunks
+(2× or 4× the rate, each with a shorter <code>tRFC</code>). Smaller chunks block the chip for
+less time at once - trading a bit more total overhead for lower worst-case latency.</p>
+
+<table>
+  <tr><th>Mode</th><th>Who drives it</th><th>Use</th></tr>
+  <tr><td>Auto-refresh</td><td>Controller issues REF</td><td>Normal operation</td></tr>
+  <tr><td>Self-refresh</td><td>Chip's own timer</td><td>Sleep / low power</td></tr>
+  <tr><td>Temp-controlled</td><td>Chip, by temperature</td><td>Save power when cool</td></tr>
+  <tr><td>Fine granularity</td><td>Controller, smaller chunks</td><td>Lower refresh-induced latency</td></tr>
+</table>
+
+<div class="box why">
+  <span class="label">The trade-off in one line</span>
+  Refresh is pure overhead - time the chip can't serve requests. Every mode is about
+  <strong>covering all cells in time while stealing as little performance/power as
+  possible.</strong> DDR5 pushes this further with same-bank refresh (Phase 2).
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>In normal operation, who decides when to refresh, and how often?</li>
+    <li>What makes self-refresh special for low-power sleep?</li>
+    <li>What does fine-granularity refresh trade away to gain lower latency?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="05-burst-length-and-prefetch.html">← Burst length &amp; prefetch</a>
+  <a href="07-initialization-and-training.html">Next → Initialization &amp; training</a>
+</div>
+
+</body>
+</html>

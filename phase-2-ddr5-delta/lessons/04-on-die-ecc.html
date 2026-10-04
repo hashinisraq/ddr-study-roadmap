@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2.4 - On-Die ECC</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 2 · Lesson 4</p>
+<h1>On-Die ECC (ODECC)</h1>
+<p class="lead">New in DDR5: every chip now quietly corrects its own single-bit errors -
+separate from the system ECC you met in Phase 1.</p>
+
+<h2>Error correction, inside the chip</h2>
+<p><strong>DDR4:</strong> error <em>correction</em> was a system/module feature - an extra chip
+on the DIMM, managed by the controller.<br>
+<strong>DDR5:</strong> every chip now has its <strong>own internal ECC</strong> that corrects
+single-bit errors <em>inside</em> the chip before data ever leaves it.</p>
+
+<figure>
+<svg viewBox="0 0 560 150" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="On-die ECC corrects a flipped bit inside the chip before output">
+  <style>
+    .cell{fill:#eaf0fb;stroke:#2d5bd0;stroke-width:1.2}
+    .bad{fill:#fdecea;stroke:#c0392b;stroke-width:1.6}
+    .ecc{fill:#e7f6ef;stroke:#0f7b5a;stroke-width:1.5}
+    .t{font:11px 'Segoe UI',sans-serif;fill:#5b6472}
+    .k{font:11.5px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+    .a{stroke:#9aa4b2;stroke-width:1.6;marker-end:url(#m)}
+  </style>
+  <defs><marker id="m" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#9aa4b2"/></marker></defs>
+  <text class="k" x="20" y="28">stored block (one bit flipped by leakage/noise)</text>
+  <g>
+    <rect class="cell" x="20" y="40" width="26" height="26"/><rect class="cell" x="48" y="40" width="26" height="26"/>
+    <rect class="bad"  x="76" y="40" width="26" height="26"/><rect class="cell" x="104" y="40" width="26" height="26"/>
+    <rect class="cell" x="132" y="40" width="26" height="26"/><rect class="cell" x="160" y="40" width="26" height="26"/>
+    <text class="t" x="80" y="82" fill="#c0392b">bad bit</text>
+  </g>
+  <line class="a" x1="200" y1="53" x2="250" y2="53"/>
+  <rect class="ecc" x="255" y="38" width="120" height="30" rx="5"/><text class="t" x="268" y="58">on-die ECC corrects</text>
+  <line class="a" x1="380" y1="53" x2="430" y2="53"/>
+  <rect class="cell" x="438" y="40" width="100" height="26" rx="4"/><text class="t" x="452" y="58">clean data out</text>
+</svg>
+<figcaption>A flipped bit is detected and corrected inside the chip, so the data leaving the
+chip is already clean.</figcaption>
+</figure>
+
+<h2>Why DDR5 needs it</h2>
+<p>DDR5 cells sit on smaller, denser process nodes, so raw single-bit errors are simply
+<strong>more common</strong>. On-die ECC cleans them at the source. It is present even on a
+"non-ECC" consumer module - it is about yield and reliability of the chip itself, not the
+system-level ECC.</p>
+
+<div class="box why">
+  <span class="label">The read-modify-write catch</span>
+  Because the chip stores ECC bits alongside each data block, a <strong>partial write</strong>
+  (smaller than the protected block) forces an internal <strong>read-modify-write</strong>:
+  read the block, merge the new bytes, recompute ECC, write it back. Worth knowing when
+  reasoning about write performance.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>How is on-die ECC different from the system ECC of Phase 1?</li>
+    <li>Why did DDR5 need on-die ECC at all?</li>
+    <li>Why can a small partial write trigger a read-modify-write?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="03-more-bank-groups-and-banks.html">← More bank groups &amp; banks</a>
+  <a href="05-link-ecc-and-crc.html">Next → Link ECC &amp; CRC</a>
+</div>
+
+</body>
+</html>

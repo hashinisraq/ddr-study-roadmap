@@ -1,0 +1,11 @@
+# Copyrighted JEDEC standards - must NOT be published to this public repo
+specs/
+
+# Generated artifacts - the live site is HTML, PDFs are not needed
+*.pdf
+
+# Scratch / editor / OS junk
+scratch/
+.DS_Store
+Thumbs.db
+*.swp

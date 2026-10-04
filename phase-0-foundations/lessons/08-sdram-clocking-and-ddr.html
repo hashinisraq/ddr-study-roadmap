@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 0.8 - SDRAM Clocking &amp; Double Data Rate</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 0 · Lesson 8</p>
+<h1>SDRAM Clocking &amp; "Double Data Rate"</h1>
+<p class="lead">What the "S" and the "DDR" actually mean - synchronous operation, a command
+bus, and transferring data on both clock edges.</p>
+
+<h2>Synchronous: everything marches to a clock</h2>
+<p><strong>SDRAM = Synchronous DRAM.</strong> A shared <strong>clock</strong> signal ticks
+continuously, and the memory captures commands and data on the clock's edges. "Synchronous"
+just means <em>in step with the clock</em>, which makes timing predictable: every action
+happens on a known tick.</p>
+
+<h2>The command/address bus</h2>
+<p>The controller tells the DRAM what to do over a <strong>command/address bus</strong> - a
+set of control wires whose pattern, sampled on a clock edge, encodes a command
+(ACTIVATE, READ, WRITE, PRECHARGE, REFRESH…). The <strong>data bus</strong> (the DQ lines)
+is separate and carries the actual bits in and out.</p>
+
+<div class="box why">
+  <span class="label">Two buses, two jobs</span>
+  Commands/addresses travel on one bus; data travels on another (the DQ lines, with their
+  strobe DQS). Keeping them separate lets the chip accept a new command while data from a
+  previous one is still flowing.
+</div>
+
+<h2>Double Data Rate: two transfers per clock tick</h2>
+<p>Plain SDRAM moved one chunk of data per clock cycle (on the rising edge). <strong>DDR</strong>
+moves data on <strong>both the rising and the falling edge</strong> - two transfers per
+cycle, doubling data throughput without doubling the clock.</p>
+
+<figure>
+<svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Single data rate versus double data rate on a clock">
+  <style>
+    .clk{fill:none;stroke:#1a1f2b;stroke-width:2}
+    .edge{stroke:#9aa4b2;stroke-width:1;stroke-dasharray:3 3}
+    .sdr{fill:#eaf0fb;stroke:#2d5bd0;stroke-width:1.5}
+    .ddr{fill:#e7f6ef;stroke:#0f7b5a;stroke-width:1.5}
+    .t{font:12px 'Segoe UI',sans-serif;fill:#5b6472}
+    .k{font:12.5px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+    .d{font:11px 'Segoe UI',sans-serif;fill:#1a1f2b}
+  </style>
+  <!-- clock -->
+  <text class="k" x="10" y="36">Clock</text>
+  <path class="clk" d="M70,45 h30 v-25 h30 v25 h30 v-25 h30 v25 h30 v-25 h30 v25 h30 v-25 h30 v25 h30"/>
+  <!-- edge guides -->
+  <g>
+    <line class="edge" x1="100" y1="20" x2="100" y2="200"/>
+    <line class="edge" x1="160" y1="20" x2="160" y2="200"/>
+    <line class="edge" x1="220" y1="20" x2="220" y2="200"/>
+    <line class="edge" x1="280" y1="20" x2="280" y2="200"/>
+    <line class="edge" x1="340" y1="20" x2="340" y2="200"/>
+  </g>
+  <!-- SDR row: one transfer per cycle (rising edges only) -->
+  <text class="k" x="10" y="95">SDR</text>
+  <rect class="sdr" x="88" y="80" width="56" height="26" rx="4"/><text class="d" x="110" y="98">D0</text>
+  <rect class="sdr" x="208" y="80" width="56" height="26" rx="4"/><text class="d" x="230" y="98">D1</text>
+  <rect class="sdr" x="328" y="80" width="56" height="26" rx="4"/><text class="d" x="350" y="98">D2</text>
+  <text class="t" x="410" y="98">1 / cycle</text>
+  <!-- DDR row: two transfers per cycle (both edges) -->
+  <text class="k" x="10" y="160">DDR</text>
+  <rect class="ddr" x="88" y="145" width="26" height="26" rx="4"/><text class="d" x="94" y="163">D0</text>
+  <rect class="ddr" x="148" y="145" width="26" height="26" rx="4"/><text class="d" x="154" y="163">D1</text>
+  <rect class="ddr" x="208" y="145" width="26" height="26" rx="4"/><text class="d" x="214" y="163">D2</text>
+  <rect class="ddr" x="268" y="145" width="26" height="26" rx="4"/><text class="d" x="274" y="163">D3</text>
+  <rect class="ddr" x="328" y="145" width="26" height="26" rx="4"/><text class="d" x="334" y="163">D4</text>
+  <text class="t" x="410" y="163">2 / cycle</text>
+</svg>
+<figcaption>Same clock, double the data: DDR sends a beat on both the rising and falling
+edge. (Only the data lines are double-pumped; commands stay one-per-cycle.)</figcaption>
+</figure>
+
+<p>This is why data rates are quoted as <strong>MT/s (mega-transfers per second)</strong>,
+roughly double the clock in MHz - e.g. a 1600&nbsp;MHz clock gives 3200&nbsp;MT/s (DDR4-3200).</p>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>What does "synchronous" mean for SDRAM?</li>
+    <li>What is the command bus, and how is it different from the data bus?</li>
+    <li>Where does the "double" in DDR come from - and does it apply to commands too?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="07-sense-amplifiers-and-row-buffer.html">← Sense amplifiers &amp; row buffer</a>
+  <a href="09-setup-hold-and-metastability.html">Next → Setup, hold &amp; metastability</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 5.4 - Track: Firmware / Training</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 5 · Track 4</p>
+<h1>Track: Firmware / Training</h1>
+<p class="lead">Write the code that brings the memory link up at boot and tunes it - the world
+of Phase 1 §7 and Phase 2 §11, taken professional.</p>
+
+<h2>What you actually do</h2>
+<p>You implement the <strong>training algorithms</strong> that center every sampling point in
+its eye: write leveling, read/DQS gate training, Vref training, CA/CS training, and duty-cycle
+adjust (DDR5). This is the <strong>memory reference code (MRC)</strong> that BIOS/UEFI runs
+before the system can use RAM.</p>
+
+<h2>What to learn</h2>
+<ul>
+  <li>The init/training sections of the spec (Phase 3), in depth.</li>
+  <li>Embedded C and low-level register programming (the mode-register maps).</li>
+  <li>BIOS/UEFI <strong>MRC</strong> concepts and platform bring-up flow.</li>
+</ul>
+
+<div class="box why">
+  <span class="label">Build to learn</span>
+  A concrete project: write pseudocode for a full training sequence - power-up → ZQ → write
+  leveling → read training → Vref - with the pass/fail criteria at each step. DDR5 adds more
+  steps and per-sub-channel tuning, but the goal never changes: center the eye.
+</div>
+
+<div class="nav">
+  <a href="03-track-signal-integrity.html">← Track: Signal integrity</a>
+  <a href="05-track-architecture.html">Next → Track: Architecture / performance</a>
+</div>
+
+</body>
+</html>

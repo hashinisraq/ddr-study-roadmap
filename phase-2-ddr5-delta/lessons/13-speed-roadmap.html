@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2.13 - DDR5 Speed Roadmap</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 2 · Lesson 13</p>
+<h1>The Speed Roadmap</h1>
+<p class="lead">Where all the previous DDR5 features were heading: much higher data rates than
+DDR4 could reach.</p>
+
+<h2>DDR4 vs DDR5 data rates</h2>
+<p>DDR4 topped out around <strong>3200 MT/s</strong> (standard JEDEC). DDR5 <strong>starts</strong>
+at 4800 MT/s and climbs well beyond, with the roadmap reaching toward 8800 MT/s.</p>
+
+<figure>
+<svg viewBox="0 0 560 190" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Bar chart of DDR4 and DDR5 data rates in MT/s">
+  <style>
+    .axis{stroke:#9aa4b2;stroke-width:1.4}
+    .d4{fill:#9aa4b2}
+    .d5{fill:#2d5bd0}
+    .t{font:10.5px 'Segoe UI',sans-serif;fill:#5b6472;text-anchor:middle}
+    .v{font:10px 'Segoe UI',sans-serif;fill:#1a1f2b;text-anchor:middle}
+  </style>
+  <line class="axis" x1="50" y1="160" x2="540" y2="160"/>
+  <!-- scale: 1px ~ (max 8800). use height factor -->
+  <!-- DDR4-3200 -->
+  <rect class="d4" x="70" y="102" width="46" height="58"/><text class="v" x="93" y="96">3200</text><text class="t" x="93" y="175">DDR4-3200</text>
+  <!-- DDR5-4800 -->
+  <rect class="d5" x="150" y="73" width="46" height="87"/><text class="v" x="173" y="67">4800</text><text class="t" x="173" y="175">DDR5-4800</text>
+  <!-- DDR5-5600 -->
+  <rect class="d5" x="230" y="59" width="46" height="101"/><text class="v" x="253" y="53">5600</text><text class="t" x="253" y="175">DDR5-5600</text>
+  <!-- DDR5-6400 -->
+  <rect class="d5" x="310" y="44" width="46" height="116"/><text class="v" x="333" y="38">6400</text><text class="t" x="333" y="175">DDR5-6400</text>
+  <!-- DDR5-8000+ -->
+  <rect class="d5" x="390" y="16" width="46" height="144" opacity="0.6"/><text class="v" x="413" y="10">8000+</text><text class="t" x="413" y="175">roadmap</text>
+  <text class="t" x="20" y="100" transform="rotate(-90 20 100)">MT/s</text>
+</svg>
+<figcaption>DDR5 begins where DDR4 ends and keeps climbing. The sub-channels, BL16, DFE, DCA,
+and on-DIMM PMIC are the machinery that makes these rates survivable.</figcaption>
+</figure>
+
+<div class="box why">
+  <span class="label">Putting Phase 2 together</span>
+  Every DDR5 change serves this curve. Two sub-channels + more banks feed the bandwidth; BL16
+  keeps the cache-line granularity; on-die ECC + RFM keep dense, fast chips reliable; DFE + DCA
+  keep the signal readable; PMIC + 1.1 V keep the power clean. <strong>That is the whole
+  story of DDR5 as an upgrade over DDR4.</strong>
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself (phase milestone)</span>
+  Reproduce the DDR4→DDR5 diff from memory - for sub-channels, burst length, ECC, refresh,
+  power, and signaling, state <em>what changed</em> and <em>why</em>. If you can, you've got
+  DDR5. Next stop: Phase 3, reading the actual specs.
+</div>
+
+<div class="nav">
+  <a href="12-modules-and-rcd.html">← Modules &amp; the RCD</a>
+  <a href="../../phase-3-specs-and-datasheets/lessons/01-how-specs-are-structured.html">Next phase → Reading the specs</a>
+</div>
+
+</body>
+</html>

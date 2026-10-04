@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2.3 - More Bank Groups &amp; Banks</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 2 · Lesson 3</p>
+<h1>More Bank Groups &amp; Banks</h1>
+<p class="lead">A quieter change than sub-channels, but it directly feeds performance: DDR5
+simply has more independent banks to interleave across.</p>
+
+<h2>More of a good thing</h2>
+<p>Recall from Phase 1 that bank-level parallelism and bank groups are how DRAM hides its slow
+row operations, and that interleaving across <strong>different</strong> bank groups lets the
+controller issue accesses back-to-back at the fast <code>tCCD_S</code> rate.</p>
+<p>DDR5 increases both counts - commonly up to <strong>8 bank groups</strong> and
+<strong>32 banks</strong> per device in larger configurations (versus DDR4's typical 4 groups
+/ 16 banks). More banks = more rows open at once = more opportunities to overlap work and keep
+the data bus busy.</p>
+
+<table>
+  <tr><th></th><th>Bank groups (typical)</th><th>Banks (typical)</th></tr>
+  <tr><td>DDR4</td><td>up to 4</td><td>up to 16</td></tr>
+  <tr><td>DDR5</td><td>up to 8</td><td>up to 32</td></tr>
+</table>
+
+<div class="box why">
+  <span class="label">Why it matters</span>
+  More bank groups give the controller more ways to spread consecutive accesses so they land in
+  <em>different</em> groups and issue at the fast rate. Combined with the two sub-channels, DDR5
+  has far more independent access points than DDR4 - essential for feeding modern core counts.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Roughly how many bank groups/banks does DDR5 add over DDR4?</li>
+    <li>Why does having more banks improve sustained bandwidth (tie back to Phase 1)?</li>
+    <li>How does this combine with the sub-channel change?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="02-burst-length-16.html">← Burst length 16</a>
+  <a href="04-on-die-ecc.html">Next → On-die ECC</a>
+</div>
+
+</body>
+</html>

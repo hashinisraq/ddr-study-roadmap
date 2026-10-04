@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2.9 - Power: PMIC &amp; Voltage</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 2 · Lesson 9</p>
+<h1>Power on the DIMM: PMIC &amp; Lower Voltage</h1>
+<p class="lead">DDR5 moves power regulation onto the module itself and drops the voltage - both
+help the high-speed signaling stay clean.</p>
+
+<h2>Regulation moves onto the module</h2>
+<p><strong>DDR4:</strong> the motherboard supplied the DRAM voltage rails.<br>
+<strong>DDR5:</strong> a <strong>Power Management IC (PMIC)</strong> sits <em>on the DIMM</em>
+and regulates power right where it is consumed.</p>
+
+<figure>
+<svg viewBox="0 0 560 160" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="DDR4 board-supplied rails versus DDR5 on-DIMM PMIC">
+  <style>
+    .board{fill:#eef1f6;stroke:#9aa4b2;stroke-width:1.4}
+    .dimm{fill:#eaf0fb;stroke:#2d5bd0;stroke-width:1.4}
+    .pmic{fill:#fdf2e0;stroke:#9a5b00;stroke-width:1.6}
+    .k{font:11.5px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+    .t{font:10px 'Segoe UI',sans-serif;fill:#5b6472;text-anchor:middle}
+    .w{stroke:#9aa4b2;stroke-width:1.6}
+  </style>
+  <!-- DDR4 -->
+  <text class="k" x="20" y="24">DDR4: board regulates, sends rails to DIMM</text>
+  <rect class="board" x="20" y="34" width="110" height="34" rx="5"/><text class="t" x="75" y="55">board VRMs</text>
+  <line class="w" x1="130" y1="51" x2="180" y2="51"/>
+  <rect class="dimm" x="180" y="34" width="120" height="34" rx="5"/><text class="t" x="240" y="55">DIMM (chips)</text>
+
+  <!-- DDR5 -->
+  <text class="k" x="20" y="108">DDR5: PMIC on the DIMM regulates locally</text>
+  <rect class="board" x="20" y="118" width="90" height="30" rx="5"/><text class="t" x="65" y="137">board 12V</text>
+  <line class="w" x1="110" y1="133" x2="150" y2="133"/>
+  <rect class="dimm" x="150" y="112" width="210" height="42" rx="5"/>
+  <rect class="pmic" x="162" y="120" width="54" height="26" rx="4"/><text class="t" x="189" y="137">PMIC</text>
+  <text class="t" x="300" y="137">chips (1.1 V local)</text>
+</svg>
+<figcaption>Local regulation on the module gives cleaner, more stable power exactly where the
+chips need it - important when margins are tight at DDR5 speeds.</figcaption>
+</figure>
+
+<h2>Lower voltage, plus sensors</h2>
+<ul>
+  <li>Core voltage drops from <strong>1.2 V (DDR4) → 1.1 V (DDR5)</strong> - less energy for
+  the same work.</li>
+  <li>DDR5 modules also carry an <strong>SPD hub</strong> (module identity/config) and on-module
+  <strong>temperature sensors</strong>.</li>
+</ul>
+
+<div class="box why">
+  <span class="label">Why on-DIMM power matters</span>
+  At gigahertz speeds, clean, stable voltage close to the chips directly affects signal
+  integrity. Putting regulation on the module (and lowering the voltage) improves power quality
+  and shifts the burden from the motherboard to the DIMM - one reason DDR5 can scale to very
+  high data rates.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Where does voltage regulation happen in DDR5 versus DDR4?</li>
+    <li>What is the DDR5 core voltage, and why is lower better?</li>
+    <li>Name two other things DDR5 modules carry (besides the PMIC).</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="08-duty-cycle-adjuster.html">← Duty Cycle Adjuster</a>
+  <a href="10-expanded-mode-registers.html">Next → Expanded mode registers</a>
+</div>
+
+</body>
+</html>

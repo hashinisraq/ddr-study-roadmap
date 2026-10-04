@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2.11 - CA Changes &amp; New Training</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 2 · Lesson 11</p>
+<h1>Command/Address Changes &amp; New Training</h1>
+<p class="lead">The faster, two-sub-channel link needs a reworked command/address scheme and
+more tuning at boot than DDR4.</p>
+
+<h2>A reworked CA bus</h2>
+<p>DDR5 changed how commands and addresses are encoded on the bus, and each
+<strong>sub-channel has its own CA</strong> (Lesson 1). The command set does the same jobs you
+know from Phase 1 (activate, read, write, precharge, refresh), but the encoding and timing were
+redesigned for DDR5's speed and structure.</p>
+
+<h2>More training steps</h2>
+<p>Recall DDR4 training (Phase 1, Lesson 7): ZQ calibration, write leveling, read/DQS gate
+training, Vref training. DDR5 adds more, because its margins are tighter:</p>
+<ul>
+  <li><strong>CA training</strong> - tune the command/address link timing.</li>
+  <li><strong>CS training</strong> - tune chip-select timing.</li>
+  <li>Refined <strong>read/write leveling</strong> and the duty-cycle adjust (Lesson 8).</li>
+</ul>
+
+<div class="box why">
+  <span class="label">Where DDR5 firmware diverges most</span>
+  If you take the <strong>firmware / training track</strong> in Phase 5, this is where DDR5
+  departs furthest from DDR4: more training steps, per-sub-channel tuning, and a larger register
+  space to drive it all. The <em>goal</em> is the same - center every sampling point in its eye -
+  there are just more knobs.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>What changed about the CA bus from DDR4 to DDR5?</li>
+    <li>Name two training steps DDR5 adds beyond DDR4's set.</li>
+    <li>Why does DDR5 need more training than DDR4?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="10-expanded-mode-registers.html">← Expanded mode registers</a>
+  <a href="12-modules-and-rcd.html">Next → Modules &amp; the RCD</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 3.3 - Datasheets vs the JEDEC Spec</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 3 · Lesson 3</p>
+<h1>Datasheets vs the JEDEC Spec</h1>
+<p class="lead">Two kinds of primary source, used together: the spec gives the rules, a
+datasheet gives a concrete real part.</p>
+
+<h2>What each one is</h2>
+<table>
+  <tr><th></th><th>JEDEC spec (JESD79-x)</th><th>Vendor datasheet</th></tr>
+  <tr><td>Scope</td><td>What <em>any</em> compliant DDR4/DDR5 chip must do</td><td>One real part from one vendor</td></tr>
+  <tr><td>Content</td><td>The full standard: state machine, all features, all timing options</td><td>That part's density, organization, and chosen timings</td></tr>
+  <tr><td>Use it for</td><td>The rules and the complete picture</td><td>A concrete instance to make the rules real</td></tr>
+</table>
+
+<h2>Read them side by side</h2>
+<p>The spec can feel abstract; a datasheet is a specific chip you could actually buy. Open a
+production <strong>DDR4 datasheet</strong> and a <strong>DDR5 datasheet</strong> (Micron,
+Samsung, or SK Hynix - all free) next to the spec. When a spec concept feels vague, find it in
+the datasheet's tables and diagrams; when a datasheet number puzzles you, find the rule behind
+it in the spec.</p>
+
+<div class="box why">
+  <span class="label">The single best way to make the spec real</span>
+  Having both open at once is the highest-leverage habit in Phase 3. The spec tells you
+  <em>why</em> a timing exists; the datasheet shows you its <em>actual value</em> for a real
+  part at a real speed grade. Drop a couple of free datasheets into this phase's
+  <code>notes/</code> folder so they travel with your study.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>What does the JEDEC spec define that a datasheet doesn't?</li>
+    <li>What does a datasheet add that the spec doesn't?</li>
+    <li>Why read them together?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="02-reading-order-strategy.html">← A reading order that works</a>
+  <a href="../../phase-4-hands-on/lessons/01-trace-a-transaction.html">Next phase → Hands-on</a>
+</div>
+
+</body>
+</html>

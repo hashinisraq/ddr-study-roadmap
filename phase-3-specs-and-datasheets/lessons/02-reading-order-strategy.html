@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 3.2 - A Reading Order That Works</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 3 · Lesson 2</p>
+<h1>A Reading Order That Works</h1>
+<p class="lead">How to actually get value from the spec without drowning: four steps that
+connect what you already know to the exact text and numbers.</p>
+
+<h2>The four steps</h2>
+<ol>
+  <li><strong>Trace your model on their state diagram.</strong> Take the ACT→RD→PRE walk from
+  Phase 1 and follow it on the spec's own simplified state diagram. Confirm your mental model
+  matches theirs.</li>
+  <li><strong>Read one command at a time, with its timing diagram.</strong> In the command/
+  operation section, read a single command and study its timing diagram alongside - the
+  diagrams are the spec's best teaching tool, so follow the arrows.</li>
+  <li><strong>Jump to the AC timing table</strong> and look up the numbers for the command you
+  just read. Connect "the rule" (operation section) to "the number" (timing table).</li>
+  <li><strong>Only then</strong> dip into the electrical and IDD sections, and only as deep as
+  your track needs.</li>
+</ol>
+
+<div class="box why">
+  <span class="label">Why this order</span>
+  You already built the concepts in Phases 0-2. This order attaches those concepts to the
+  spec's exact wording, diagrams, and numbers - turning understanding into the ability to cite
+  chapter and verse. Reading linearly from page 1 would bury you in pinouts and electrical
+  tables before you reach the parts that teach.
+</div>
+
+<div class="box analogy">
+  <span class="label">Analogy</span>
+  You don't learn a city by reading the phone book front to back. You take a route you already
+  know and look up the exact street names and numbers as you go. Same here: known route
+  (ACT→RD→PRE) first, then the precise spec details.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>What's the first thing to do when you open the spec?</li>
+    <li>Why read a command and its timing diagram together?</li>
+    <li>When should you read the electrical/IDD sections?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="01-how-specs-are-structured.html">← How a spec is structured</a>
+  <a href="03-datasheets-vs-spec.html">Next → Datasheets vs the spec</a>
+</div>
+
+</body>
+</html>

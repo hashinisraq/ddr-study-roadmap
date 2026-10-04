@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 1.1 - DDR4 Organization Hierarchy</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 1 · Lesson 1</p>
+<h1>The Organization Hierarchy</h1>
+<p class="lead">From the stick you plug in down to a single cell - the nested containers
+every DDR command targets.</p>
+
+<h2>The chain, outside in</h2>
+<figure>
+<svg viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Nested hierarchy from channel to cell">
+  <style>
+    .b{rx:7;stroke-width:1.6}
+    .t{font:12.5px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+    .d{font:11px 'Segoe UI',sans-serif;fill:#5b6472}
+    .arr{stroke:#9aa4b2;stroke-width:1.6;marker-end:url(#a)}
+  </style>
+  <defs><marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#9aa4b2"/></marker></defs>
+  <g>
+    <rect class="b" x="20" y="30" width="110" height="46" fill="#eaf0fb" stroke="#2d5bd0"/>
+    <text class="t" x="42" y="52">Channel</text><text class="d" x="30" y="68">64-bit bus</text>
+    <rect class="b" x="160" y="30" width="110" height="46" fill="#eaf0fb" stroke="#2d5bd0"/>
+    <text class="t" x="195" y="52">DIMM</text><text class="d" x="172" y="68">the module</text>
+    <rect class="b" x="300" y="30" width="110" height="46" fill="#eaf0fb" stroke="#2d5bd0"/>
+    <text class="t" x="330" y="52">Rank</text><text class="d" x="312" y="68">chips as one 64b</text>
+    <rect class="b" x="440" y="30" width="110" height="46" fill="#eaf0fb" stroke="#2d5bd0"/>
+    <text class="t" x="470" y="52">Chip</text><text class="d" x="452" y="68">one device</text>
+  </g>
+  <line class="arr" x1="130" y1="53" x2="158" y2="53"/>
+  <line class="arr" x1="270" y1="53" x2="298" y2="53"/>
+  <line class="arr" x1="410" y1="53" x2="438" y2="53"/>
+  <!-- second row: inside the chip -->
+  <g>
+    <rect class="b" x="20" y="140" width="120" height="46" fill="#e7f6ef" stroke="#0f7b5a"/>
+    <text class="t" x="36" y="162">Bank group</text><text class="d" x="40" y="178">→ Bank</text>
+    <rect class="b" x="180" y="140" width="120" height="46" fill="#e7f6ef" stroke="#0f7b5a"/>
+    <text class="t" x="206" y="162">Row</text><text class="d" x="196" y="178">one word line</text>
+    <rect class="b" x="340" y="140" width="120" height="46" fill="#e7f6ef" stroke="#0f7b5a"/>
+    <text class="t" x="368" y="162">Column</text><text class="d" x="356" y="178">one bit line</text>
+    <rect class="b" x="480" y="140" width="70" height="46" fill="#fdf2e0" stroke="#9a5b00"/>
+    <text class="t" x="500" y="162">Cell</text><text class="d" x="495" y="178">1 bit</text>
+  </g>
+  <line class="arr" x1="140" y1="163" x2="178" y2="163"/>
+  <line class="arr" x1="300" y1="163" x2="338" y2="163"/>
+  <line class="arr" x1="460" y1="163" x2="478" y2="163"/>
+  <!-- connector from chip to bank group -->
+  <line class="arr" x1="495" y1="78" x2="90" y2="138"/>
+  <text class="d" x="250" y="112">inside each chip ↓</text>
+</svg>
+<figcaption>Channel → DIMM → Rank → Chip → (inside) Bank group → Bank → Row → Column → Cell.
+Every command and timing targets one of these levels.</figcaption>
+</figure>
+
+<table>
+  <tr><th>Level</th><th>What it is</th></tr>
+  <tr><td><strong>Channel</strong></td><td>One 64-bit data path from the memory controller.</td></tr>
+  <tr><td><strong>DIMM</strong></td><td>The physical module you plug in; a channel holds one or more.</td></tr>
+  <tr><td><strong>Rank</strong></td><td>A group of chips selected together by one chip-select (CS), forming the full 64 bits (72 with ECC).</td></tr>
+  <tr><td><strong>Chip (device)</strong></td><td>One DRAM package. e.g. eight ×8 chips = a 64-bit rank.</td></tr>
+  <tr><td><strong>Bank group → Bank</strong></td><td>Independent sub-arrays inside a chip, each with its own row buffer.</td></tr>
+  <tr><td><strong>Row / Column</strong></td><td>The grid inside a bank (Phase 0): a word line selects a row; bit lines are columns.</td></tr>
+  <tr><td><strong>Cell</strong></td><td>One 1T1C bit.</td></tr>
+</table>
+
+<div class="box why">
+  <span class="label">Chip width (×4 / ×8 / ×16)</span>
+  A "×8" chip outputs 8 data bits, so eight of them make a 64-bit rank; "×4" (4 bits, big
+  server DIMMs) and "×16" (16 bits, laptops) are the same spec at different widths. Narrower
+  chips → more chips per rank → more banks available in parallel.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Recite the full hierarchy from channel to cell.</li>
+    <li>What makes up a "rank," and how wide is it?</li>
+    <li>Why does chip width (×4 vs ×8) affect how much parallelism you have?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="../../phase-0-foundations/lessons/11-signal-integrity-basics.html">← Phase 0 end</a>
+  <a href="02-command-set.html">Next → The command set</a>
+</div>
+
+</body>
+</html>

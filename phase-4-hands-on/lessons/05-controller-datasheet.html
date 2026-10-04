@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 4.5 - Read a Controller Datasheet</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 4 · Lesson 5 · Exercise</p>
+<h1>Read a Real Memory-Controller Datasheet</h1>
+<p class="lead">Connect "the spec" to "the knob an engineer actually turns" by mapping a real
+controller's config registers back to JEDEC timings.</p>
+
+<h2>The exercise</h2>
+<ol>
+  <li>Pick an SoC or FPGA DDR controller - e.g. <strong>AMD/Xilinx, Intel, or TI</strong> - and
+  find its memory-timing <strong>configuration registers</strong>.</li>
+  <li>For each timing field, identify the JEDEC parameter it sets: tRCD, tRP, tRAS, CL, tFAW,
+  tREFI, and so on.</li>
+  <li>Note how the controller expresses them (often in <em>clock cycles</em>, computed from the
+  nanosecond spec value and the operating frequency).</li>
+</ol>
+
+<div class="box why">
+  <span class="label">Why this closes the loop</span>
+  The JEDEC spec says tRCD is "this many nanoseconds." The datasheet (Phase 3) gives the value
+  for a real chip. The <em>controller</em> is where someone programs that value in clock cycles
+  to make the link run. Seeing all three views of the same parameter is what makes you fluent.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Where in a controller do the DRAM timings get programmed?</li>
+    <li>Why are they often expressed in clock cycles rather than nanoseconds?</li>
+    <li>Trace one parameter (say tRCD) across spec → datasheet → controller register.</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="04-timing-experiments.html">← Timing experiments</a>
+  <a href="../../phase-5-specialization/lessons/01-track-controller-rtl.html">Next phase → Specialization</a>
+</div>
+
+</body>
+</html>

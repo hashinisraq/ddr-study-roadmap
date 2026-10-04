@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 3.1 - How a JEDEC Spec Is Structured</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 3 · Lesson 1</p>
+<h1>How a JEDEC DRAM Spec Is Structured</h1>
+<p class="lead">The specs are <em>reference manuals</em>, not textbooks. You don't read them
+cover-to-cover for understanding - you learn to navigate them. Both DDR4 and DDR5 follow the
+same skeleton.</p>
+
+<h2>The shared skeleton</h2>
+<table>
+  <tr><th>#</th><th>Section</th><th>What it holds / how to treat it</th></tr>
+  <tr><td>1-2</td><td>Pinout &amp; addressing</td><td>What each pin does; row/column/bank bits.</td></tr>
+  <tr><td>3</td><td>Functional description</td><td><strong>Start here</strong> - the simplified state diagram and basic operation.</td></tr>
+  <tr><td>3-4</td><td>Mode registers</td><td>Every configurable setting, bit by bit (reference).</td></tr>
+  <tr><td>4</td><td>Command description &amp; operation</td><td><strong>The biggest, most useful part</strong> - behavior + timing diagrams for ACT/RD/WR/PRE/REF, training, etc.</td></tr>
+  <tr><td>5</td><td>On-die termination</td><td>ODT modes and timing.</td></tr>
+  <tr><td>6-9</td><td>Electrical (AC/DC) levels</td><td>Voltages, slew rates, signal integrity. Skim unless on the SI track.</td></tr>
+  <tr><td>10</td><td>Speed bins</td><td>Allowed timing combos per data rate.</td></tr>
+  <tr><td>11</td><td>IDD / current</td><td>Power/current test patterns (reference only).</td></tr>
+  <tr><td>13</td><td>AC timing tables</td><td>The actual numbers - tRCD, tRP, CL, etc., per speed grade.</td></tr>
+</table>
+
+<div class="box why">
+  <span class="label">Know the skeleton, navigate anything</span>
+  Once you recognize this layout, any DDR spec becomes searchable: you jump straight to the
+  section you need (operation, timing table, ODT) instead of reading linearly. The DDR5 spec is
+  longer and adds its new features, but the bones are the same.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Which section should you read first, and why?</li>
+    <li>Where do the actual timing numbers live?</li>
+    <li>Which sections can you skim unless you're on the signal-integrity track?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="../../phase-2-ddr5-delta/lessons/13-speed-roadmap.html">← Phase 2 end</a>
+  <a href="02-reading-order-strategy.html">Next → A reading order that works</a>
+</div>
+
+</body>
+</html>

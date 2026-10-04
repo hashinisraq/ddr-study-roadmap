@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 1.2 - The DDR4 Command Set</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 1 · Lesson 2</p>
+<h1>The Command Set (the verbs)</h1>
+<p class="lead">Everything the DRAM ever does is a sequence of a handful of commands on the
+command/address bus. Learn the verbs and when each one is legal.</p>
+
+<h2>The commands</h2>
+<table>
+  <tr><th>Command</th><th>What it does</th><th>Carries</th></tr>
+  <tr><td><strong>ACTIVATE (ACT)</strong></td><td>Open a row in a bank into its row buffer.</td><td>Bank + <strong>row</strong> address</td></tr>
+  <tr><td><strong>READ (RD)</strong></td><td>Read a burst of columns from the open row.</td><td>Bank + <strong>column</strong> address</td></tr>
+  <tr><td><strong>WRITE (WR)</strong></td><td>Write a burst of columns into the open row.</td><td>Bank + column address</td></tr>
+  <tr><td><strong>PRECHARGE (PRE)</strong></td><td>Close the open row; reset the bit lines.</td><td>Bank (or all banks)</td></tr>
+  <tr><td><strong>REFRESH (REF)</strong></td><td>Top up leaking cells (Phase 0).</td><td>-</td></tr>
+  <tr><td><strong>MODE REG SET (MRS)</strong></td><td>Configure chip settings (latencies, features).</td><td>Register + value</td></tr>
+  <tr><td><strong>NOP / DES</strong></td><td>Do nothing / deselect this cycle.</td><td>-</td></tr>
+</table>
+
+<h2>Row address with ACT, column address with RD/WR</h2>
+<p>Notice the split: the <strong>row</strong> address rides with ACTIVATE (you open a whole
+row), and the <strong>column</strong> address rides with READ/WRITE (you pick columns out of
+the already-open row). This two-step addressing is a direct consequence of the row-buffer
+model from Phase 0.</p>
+
+<div class="box why">
+  <span class="label">The canonical sequence</span>
+  A read of a fresh location is always <strong>ACT → RD → PRE</strong>: open the page, read
+  from it, close it. A write is <strong>ACT → WR → PRE</strong>. Refresh (REF) and configure
+  (MRS) are housekeeping around that core loop. If you can narrate ACT→RD→PRE, you understand
+  how DRAM is driven.
+</div>
+
+<div class="box analogy">
+  <span class="label">Analogy</span>
+  ACT = open the filing cabinet drawer (the row). RD/WR = take out or put in specific folders
+  (columns). PRE = close the drawer so you can open a different one. REF = the clerk walking
+  the aisles rewriting fading labels.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Which command carries the row address, and which carries the column address?</li>
+    <li>Write the command sequence to read one fresh location and leave the bank closed.</li>
+    <li>What is the difference between NOP/DES and a real command?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="01-organization-hierarchy.html">← Organization hierarchy</a>
+  <a href="03-bank-state-machine.html">Next → The bank state machine</a>
+</div>
+
+</body>
+</html>

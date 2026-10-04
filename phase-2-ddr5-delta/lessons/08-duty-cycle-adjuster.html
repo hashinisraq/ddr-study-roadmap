@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2.8 - Duty Cycle Adjuster</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 2 · Lesson 8</p>
+<h1>Duty Cycle Adjuster (DCA / DCM)</h1>
+<p class="lead">Another "make high speed work" feature: keep the clock's high and low halves
+equal so timing margin isn't wasted.</p>
+
+<h2>The problem: a lopsided clock</h2>
+<p>A perfect clock spends 50% of each cycle high and 50% low. At high speed the clock can drift
+to, say, 55/45 - <strong>duty-cycle distortion</strong>. Since DDR transfers data on
+<em>both</em> edges (Phase 0, Lesson 4), an uneven clock makes one half-cycle shorter than the
+other, eating into the already-tiny timing margin.</p>
+
+<figure>
+<svg viewBox="0 0 560 150" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Distorted duty cycle corrected to 50/50">
+  <style>
+    .clk{fill:none;stroke:#c0392b;stroke-width:2.2}
+    .clk2{fill:none;stroke:#0f7b5a;stroke-width:2.2}
+    .k{font:11.5px 'Segoe UI',sans-serif;fill:#1a1f2b;font-weight:600}
+    .t{font:10px 'Segoe UI',sans-serif;fill:#5b6472;text-anchor:middle}
+    .a{stroke:#9aa4b2;stroke-width:1.6;marker-end:url(#m)}
+  </style>
+  <defs><marker id="m" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#9aa4b2"/></marker></defs>
+  <!-- distorted: long high, short low -->
+  <text class="k" x="20" y="24">Distorted (e.g. 60 / 40)</text>
+  <path class="clk" d="M20,90 h70 v-40 h30 v40 h70 v-40 h30 v40 h40"/>
+  <text class="t" x="55" y="104">long high</text><text class="t" x="105" y="104">short</text>
+  <!-- arrow -->
+  <line class="a" x1="270" y1="70" x2="310" y2="70"/><text class="t" x="290" y="60">DCA</text>
+  <!-- corrected 50/50 -->
+  <text class="k" x="330" y="24">Corrected (50 / 50)</text>
+  <path class="clk2" d="M330,90 h50 v-40 h50 v40 h50 v-40 h50 v40 h20"/>
+  <text class="t" x="430" y="104">equal halves</text>
+</svg>
+<figcaption>The Duty Cycle Adjuster measures the distortion and corrects the clock back toward
+an even 50/50, restoring symmetric timing for both data edges.</figcaption>
+</figure>
+
+<h2>What DCA/DCM does</h2>
+<p>DDR5 adds a <strong>Duty Cycle Monitor (DCM)</strong> to measure the distortion and a
+<strong>Duty Cycle Adjuster (DCA)</strong> to correct it, nudging the clock back toward an even
+50/50 so both the rising-edge and falling-edge data beats get equal timing margin.</p>
+
+<div class="box why">
+  <span class="label">Pattern recognition</span>
+  DFE (Lesson 7) and DCA are both <strong>high-speed enablers</strong> - extra circuitry whose
+  only job is to make DDR5's aggressive data rates survivable. DDR4 didn't need them at its
+  lower speeds.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>What is duty-cycle distortion, and why does it hurt DDR especially?</li>
+    <li>What do DCM and DCA each do?</li>
+    <li>What theme do DCA and DFE share?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="07-decision-feedback-equalization.html">← Decision Feedback Equalization</a>
+  <a href="09-power-pmic-and-voltage.html">Next → Power: PMIC &amp; voltage</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 0.5 - DRAM Cell Structure</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 0 · Lesson 5</p>
+<h1>DRAM Cell Structure: Capacitor + Access Transistor</h1>
+<p class="lead">The smallest piece of DRAM - one bit - is just two components. Get this
+picture right and everything else in DDR builds on it.</p>
+
+<h2>The one-transistor, one-capacitor cell</h2>
+<p>A single DRAM bit is stored in a <strong>1T1C cell</strong>: one
+<strong>capacitor</strong> that holds the bit as an electric charge, and one
+<strong>transistor</strong> that acts as a switch connecting that capacitor to the
+outside world.</p>
+
+<figure>
+<svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Schematic of a 1T1C DRAM cell">
+  <style>
+    .wire{fill:none;stroke:#1a1f2b;stroke-width:2.2;stroke-linecap:round}
+    .plate{stroke:#1a1f2b;stroke-width:3}
+    .lbl{font:12px 'Segoe UI',sans-serif;fill:#1a1f2b}
+    .mut{font:11.5px 'Segoe UI',sans-serif;fill:#5b6472}
+    .node{fill:#1a1f2b}
+    .hot{fill:#eaf0fb;stroke:#2d5bd0;stroke-width:1.5}
+  </style>
+
+  <!-- Bit line -->
+  <line class="wire" x1="120" y1="25" x2="120" y2="275"/>
+  <text class="lbl" x="92" y="20">BL</text>
+  <text class="mut" x="20" y="150" transform="rotate(-90 20 150)">Bit line - data in / out</text>
+
+  <!-- Drain wire from bitline to transistor -->
+  <line class="wire" x1="120" y1="80" x2="250" y2="80"/>
+  <line class="wire" x1="250" y1="80" x2="250" y2="105"/>
+  <circle class="node" cx="120" cy="80" r="3.5"/>
+
+  <!-- Transistor channel bar -->
+  <line class="wire" x1="250" y1="105" x2="250" y2="185"/>
+  <!-- gate plate (with gap to channel) -->
+  <line class="plate" x1="268" y1="112" x2="268" y2="178"/>
+  <!-- gate lead to word line -->
+  <line class="wire" x1="268" y1="145" x2="430" y2="145"/>
+
+  <!-- Word line -->
+  <line class="wire" x1="430" y1="25" x2="430" y2="275"/>
+  <text class="lbl" x="420" y="20">WL</text>
+  <text class="mut" x="455" y="150" transform="rotate(90 455 150)">Word line - selects the row</text>
+  <circle class="node" cx="430" cy="145" r="3.5"/>
+
+  <!-- Source wire down to capacitor -->
+  <line class="wire" x1="250" y1="185" x2="250" y2="210"/>
+  <!-- Capacitor plates -->
+  <line class="plate" x1="222" y1="212" x2="278" y2="212"/>
+  <line class="plate" x1="222" y1="224" x2="278" y2="224"/>
+  <!-- ground lead -->
+  <line class="wire" x1="250" y1="224" x2="250" y2="248"/>
+  <line class="wire" x1="230" y1="248" x2="270" y2="248"/>
+  <line class="wire" x1="237" y1="255" x2="263" y2="255"/>
+  <line class="wire" x1="243" y1="262" x2="257" y2="262"/>
+
+  <!-- callout labels -->
+  <rect class="hot" x="300" y="92" width="150" height="22" rx="5"/>
+  <text class="lbl" x="308" y="107">Access transistor (switch)</text>
+  <line class="wire" x1="300" y1="103" x2="272" y2="130" stroke-dasharray="3 3"/>
+
+  <rect class="hot" x="300" y="200" width="168" height="22" rx="5"/>
+  <text class="lbl" x="308" y="215">Storage capacitor (the bit)</text>
+  <line class="wire" x1="300" y1="211" x2="280" y2="218" stroke-dasharray="3 3"/>
+</svg>
+<figcaption>A 1T1C DRAM cell. The word line turns the transistor on; the bit line then
+reaches the capacitor to read or write the stored charge.</figcaption>
+</figure>
+
+<h3>The capacitor = the bit</h3>
+<p>The capacitor stores the value as charge: <strong>charged = 1, empty = 0</strong>.
+It is microscopic, because billions of them are packed onto one chip.</p>
+
+<h3>The transistor = the switch (the "access" device)</h3>
+<p>On its own the capacitor is sealed off. The transistor connects it to the
+<strong>bit line</strong> only when the <strong>word line</strong> turns the transistor
+<em>on</em>. So:</p>
+<ul>
+  <li><strong>Word line HIGH</strong> → transistor conducts → capacitor is connected to
+  the bit line → you can read or write the bit.</li>
+  <li><strong>Word line LOW</strong> → transistor off → capacitor is isolated → the bit
+  just sits there (slowly leaking - that is the next lesson).</li>
+</ul>
+
+<div class="box analogy">
+  <span class="label">Analogy</span>
+  The capacitor is a tiny <strong>bucket of water</strong> (full = 1, empty = 0). The
+  transistor is the <strong>tap</strong>. The word line is the <strong>hand</strong> that
+  opens the tap; the bit line is the <strong>pipe</strong> you fill from or drain into.
+</div>
+
+<h2>Why two wires: word line and bit line</h2>
+<p>Every cell sits at the crossing of one word line and one bit line. That is deliberate:
+it lets you address any single cell out of billions with just a <em>row</em> wire and a
+<em>column</em> wire.</p>
+
+<figure>
+<svg viewBox="0 0 440 210" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="A small array of DRAM cells at word-line and bit-line crossings">
+  <style>
+    .g{fill:none;stroke:#9aa4b2;stroke-width:1.6}
+    .c{fill:#2d5bd0}
+    .t{font:11px 'Segoe UI',sans-serif;fill:#5b6472}
+  </style>
+  <!-- bit lines (vertical) -->
+  <line class="g" x1="110" y1="30" x2="110" y2="170"/>
+  <line class="g" x1="210" y1="30" x2="210" y2="170"/>
+  <line class="g" x1="310" y1="30" x2="310" y2="170"/>
+  <!-- word lines (horizontal) -->
+  <line class="g" x1="70" y1="60" x2="360" y2="60"/>
+  <line class="g" x1="70" y1="100" x2="360" y2="100"/>
+  <line class="g" x1="70" y1="140" x2="360" y2="140"/>
+  <!-- cells at crossings -->
+  <g>
+    <circle class="c" cx="110" cy="60" r="5"/><circle class="c" cx="210" cy="60" r="5"/><circle class="c" cx="310" cy="60" r="5"/>
+    <circle class="c" cx="110" cy="100" r="5"/><circle class="c" cx="210" cy="100" r="5"/><circle class="c" cx="310" cy="100" r="5"/>
+    <circle class="c" cx="110" cy="140" r="5"/><circle class="c" cx="210" cy="140" r="5"/><circle class="c" cx="310" cy="140" r="5"/>
+  </g>
+  <text class="t" x="20" y="64">word lines</text>
+  <text class="t" x="20" y="104">(rows)</text>
+  <text class="t" x="86" y="195">bit lines (columns)</text>
+</svg>
+<figcaption>Cells tile into a grid. One word line selects a whole <em>row</em> of cells at
+once; the bit lines carry each <em>column's</em> data. This grid is the foundation for
+rows, columns, and the row buffer in later lessons.</figcaption>
+</figure>
+
+<div class="box why">
+  <span class="label">Why this matters</span>
+  Because a word line activates an <strong>entire row</strong> of cells together, DRAM
+  never works on a single bit in isolation - it opens a whole row at a time. That single
+  fact drives the ACTIVATE command, the row buffer, and most DDR timings you will meet in
+  Phase 1.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Name the two components of a DRAM cell and what each one does.</li>
+    <li>Which wire turns the transistor on, and what does that let you reach?</li>
+    <li>When the word line is low, what happens to the stored bit?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="04-banks-and-bank-groups.html">← Banks &amp; bank groups</a>
+  <a href="06-refresh-and-destructive-reads.html">Next → Refresh &amp; destructive reads</a>
+</div>
+
+</body>
+</html>

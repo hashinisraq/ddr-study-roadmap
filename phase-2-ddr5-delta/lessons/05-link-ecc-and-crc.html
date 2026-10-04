@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2.5 - Link ECC &amp; CRC Changes</title>
+<link rel="stylesheet" href="../../assets/lesson.css">
+</head>
+<body>
+
+<p class="kicker">Phase 2 · Lesson 5</p>
+<h1>Link / System ECC &amp; CRC Changes</h1>
+<p class="lead">Beyond on-die ECC, DDR5 adds and refines error protection on the bus and at the
+system level - layers that each catch a different class of error.</p>
+
+<h2>Layers of protection</h2>
+<p>Think of DDR5 error handling as nested layers, from inside the cell array outward:</p>
+<table>
+  <tr><th>Layer</th><th>Where</th><th>Catches</th></tr>
+  <tr><td><strong>On-die ECC</strong> (Lesson 4)</td><td>Inside each chip</td><td>Single-bit errors in stored cells</td></tr>
+  <tr><td><strong>CRC on the link</strong></td><td>On the data bus (DQ)</td><td>Corruption while data crosses the wires</td></tr>
+  <tr><td><strong>System / link ECC</strong></td><td>Controller + module</td><td>Errors across the whole transfer, often correctable</td></tr>
+</table>
+
+<h2>What changed vs DDR4</h2>
+<p>DDR4 had write-data CRC and (on ECC modules) system ECC. DDR5 <strong>refines the CRC</strong>
+scheme on the link and strengthens system-level ECC, so more error classes are detected and
+corrected end to end. The net effect: data is checked inside the array, again as it crosses the
+bus, and again at the system level.</p>
+
+<div class="box why">
+  <span class="label">Why so many layers</span>
+  Higher speeds and denser cells mean more chances for a bit to go wrong - in storage
+  <em>and</em> in transit. Each layer targets a different failure point, so together they keep
+  the overall error rate acceptable despite DDR5's aggressive speed and density.
+</div>
+
+<div class="box check">
+  <span class="label">Check yourself</span>
+  <ol style="margin:4px 0 0">
+    <li>Name the three protection layers and what each one guards.</li>
+    <li>Which layer handles corruption that happens on the wires?</li>
+    <li>Why does DDR5 need more error protection than DDR4?</li>
+  </ol>
+</div>
+
+<div class="nav">
+  <a href="04-on-die-ecc.html">← On-die ECC</a>
+  <a href="06-refresh-same-bank-and-rfm.html">Next → Same-bank refresh &amp; RFM</a>
+</div>
+
+</body>
+</html>
